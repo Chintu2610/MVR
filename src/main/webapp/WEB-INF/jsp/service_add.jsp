@@ -73,10 +73,10 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
         xhr.open('POST', '/serviceadd');
         xhr.onload = function() {
             if (xhr.status === 200) {
-                alert('Raw material added successfully');
+               
                 window.location.reload();
             } else {
-                console.error('Error adding raw material');
+                console.error('Error adding ');
             }
         };
         xhr.send(formData);
