@@ -1,0 +1,45 @@
+/*table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white; 
+        }
+
+        th, td {
+            border: 1px solid black; 
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .hidden {
+		    display: none;
+		}
+		
+		*/
+		
+table {
+  border-collapse: collapse;  
+  width: 80%;
+  margin: 0 auto;
+}
+
+tr {
+  display: block;
+  border-bottom: 1px solid #ddd;
+  border-radius: 10px; 
+  background-color: #f0f0f0;
+  margin-top: 10px;
+}
+
+th, td {
+ width: 150px; 
+  padding: 10px;
+  text-align: left;
+}
+
+tr:nth-child(odd) {
+  background-color: lightgray;
+}
+
+tr:hover {
+  background-color: #D6EEEE;
+}

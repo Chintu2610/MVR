@@ -1,0 +1,26 @@
+package com.MVRGroup.dto;
+
+import com.MVRGroup.entity.WorkAssign;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class WorkAssignDTO {
+	private int id;
+    private String email;
+    private String assignedWork;
+    private int userId;
+    private String Name; // Add more user properties as needed
+
+    public WorkAssignDTO(WorkAssign workAssign) {
+        this.id = workAssign.getId();
+        this.email = workAssign.getEmail();
+        this.assignedWork = workAssign.getAssignedWork();
+        this.userId = workAssign.getUser().getUserid();// Assuming User has an id field
+        this.Name = workAssign.getUser().getName() ;// Assuming User has a firstName field
+    }
+}
