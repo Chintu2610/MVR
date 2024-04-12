@@ -19,7 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class ServiceController {
@@ -112,7 +115,7 @@ public class ServiceController {
 	            serviceService.saveService(serviceEntity);
 
 	            // Redirect to a success page or return success message
-	            return "redirect:/success";
+	            return "redirect:/service";
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	            // Handle error
@@ -120,12 +123,11 @@ public class ServiceController {
 	        }
 	    }
 
-
-	    @PostMapping("/serviceedit")
-	    public String Serviceedit(@ModelAttribute ServiceEntity rawmaterial) {
-	    	serviceService.EditService(rawmaterial);
-	        return "redirect:/service";
-	    }
+		/*
+		 * @PostMapping("/serviceedit") public String Serviceedit(@ModelAttribute
+		 * ServiceEntity rawmaterial) { serviceService.EditService(rawmaterial); return
+		 * "redirect:/service"; }
+		 */
 
 	    
 	  @PostMapping("/servicedelete")
@@ -134,5 +136,64 @@ public class ServiceController {
 		  serviceService.DeleteService(serviceId);
 		 return "redirect:/service";
 		}
+	  
+	  @GetMapping("/service_edit")
+		public String viewservice_editPage() {
+		    return "serviceEdit";
+		}
+		/*
+		 * @PostMapping("/serviceedit") public String serviceeditedit(@RequestParam
+		 * String service_id,
+		 * 
+		 * @RequestParam String image_url,
+		 * 
+		 * @RequestParam String service_name,
+		 * 
+		 * @RequestParam String url) { ServiceEntity rawmaterial = new ServiceEntity();
+		 * rawmaterial.setServiceId(Integer.parseInt(service_id));
+		 * rawmaterial.setServiceName(service_name); rawmaterial.setImageUrl(image_url);
+		 * rawmaterial.setUrl(url);
+		 * 
+		 * serviceService.EditService(rawmaterial);
+		 * 
+		 * // Redirect to the raw material page return "redirect:/service"; }
+		 */
+	  
+	  @PostMapping("/serviceedit")
+	  public String serviceeditedit(@RequestParam String service_id,
+	                                @RequestParam String image_url,
+	                                @RequestParam String service_name,
+	                                @RequestParam(value = "file", required = false) MultipartFile file,
+	                                @RequestParam String url)  {
+	      String fileName = null; // Initialize fileName
+	      
+	      // Check if file is not null and not empty
+	      if (file != null && !file.isEmpty()) {
+	          try {
+	              // Define upload directory and save the file
+	              String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/assets";
+	              fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename(); // Generate unique file name
+	              File destFile = new File(uploadDirectory + File.separator + fileName);
+	              file.transferTo(destFile);
+	          } catch (IOException e) {
+	              e.printStackTrace(); // Handle file transfer exception if needed
+	          }
+	      }
+	      
+	      // Set the imageUrl to the file name if file is uploaded, otherwise keep the existing image URL
+	      String imageUrl = (fileName != null) ? fileName : image_url;
+
+	      ServiceEntity rawmaterial = new ServiceEntity();
+	      rawmaterial.setServiceId(Integer.parseInt(service_id));
+	      rawmaterial.setServiceName(service_name);
+	      rawmaterial.setImageUrl(imageUrl);
+	      rawmaterial.setUrl(url);
+
+	      serviceService.EditService(rawmaterial);
+
+	      // Redirect to the service page
+	      return "redirect:/service";
+	  }
+
 	 
 }
