@@ -17,7 +17,7 @@ public class WorkAssignDTO {
     private String Name; // Add more user properties as needed
 
     public WorkAssignDTO(WorkAssign workAssign) {
-        this.id = workAssign.getId();
+        this.id = workAssign.getWorkid();
         this.email = workAssign.getEmail();
         this.assignedWork = workAssign.getAssignedWork();
         this.userId = workAssign.getUser().getUserid();// Assuming User has an id field

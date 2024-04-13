@@ -169,6 +169,60 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
         });
     }
 </script>
+
+<div class="form-group row">
+    <label for="rawmaterials" class="col-sm-2 col-form-label">Available RawMaterials<span class="text-danger">*</span></label>
+    <div class="col-sm-8">
+        <select id="rawmaterials" name="rawmaterials" class="form-control" multiple>
+            <!-- Options will be populated dynamically -->
+        </select>
+    </div>
+</div>
+
+<!-- Input fields for specifying quantity -->
+<div id="quantityInputs">
+    <!-- Quantity inputs will be dynamically added here -->
+</div>
+
+<script>
+    $(document).ready(function () {
+        showAllAvailableRawMaterials();
+    });
+
+    function showAllAvailableRawMaterials() {
+        // Make an AJAX request to the server-side endpoint to fetch all available raw materials
+        $.ajax({
+            type: 'GET',
+            url: 'rawmaterialDetails',
+            dataType: 'json',
+            success: function (data) {
+                // Clear the dropdown and quantity inputs before populating with new data
+                $('#rawmaterials').empty();
+                $('#quantityInputs').empty();
+
+                // Iterate over each raw material and append a new option to the dropdown
+                $.each(data, function (index, material) {
+                    $('#rawmaterials').append($('<option>', {
+                        value: material.name,
+                        text: material.name
+                    }));
+
+                    // Create an input field for quantity corresponding to each raw material
+                    $('#quantityInputs').append('<div class="form-group row">' +
+                        '<label for="' + material.name + '" class="col-sm-2 col-form-label">' + material.name + ' Quantity</label>' +
+                        '<div class="col-sm-8">' +
+                        '<input type="number" id="' + material.name + '" name="' + material.name + '_quantity" class="form-control" placeholder="Enter quantity">' +
+                        '</div>' +
+                        '</div>');
+                });
+            },
+            error: function (error) {
+                console.error('Error fetching raw materials:', error);
+            }
+        });
+    }
+</script>
+
 	  
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary submit-btn">Assign</button>

@@ -16,6 +16,6 @@ public interface WorkAssignRepo extends JpaRepository<WorkAssign,Integer>{
             "VALUES ((SELECT userid FROM user WHERE email = ?1), ?2, ?3)",
     nativeQuery = true)
     void assignWork(String email, String work, String userEmail);
-    
 
+    Long findWorkidByEmailAndAssignedWork(String email, String assignedWork);
 }
