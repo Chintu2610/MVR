@@ -3,11 +3,10 @@ HttpSession sdsession = request.getSession(true);
 String name = (String) sdsession.getAttribute("name");
 String username = (String) sdsession.getAttribute("email");
 String roleIDString = (String) sdsession.getAttribute("RoleID");
-
 %>
 <% 
-        // Retrieve the serviceId from the request parameters
-        String serviceId = request.getParameter("serviceId");
+    // Retrieve the serviceId from the request parameters
+    String serviceId = request.getParameter("serviceId");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,10 +32,8 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <title>Service</title>
-   <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-B7ovMxWLVt/gqzPzm4lABw+qrVc71Hn26OatLFTs/qLJfvC29+aI/qnu9E4r9KyjIz+24k8CdNdR7jtCIu+TKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-     -->
+    <link rel="stylesheet" href="css/tstyle.css">
+    <title>Sub Service</title>
 </head>
 <body>
 <div class="main-wrapper">
@@ -61,33 +58,29 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                     </div>
                 </div>
 
-
-   <div class="col-auto float-right ml-auto">
-							<a href="#" class="Addbutton" data-toggle="modal" data-target="#add1"><i class="fa fa-plus"></i> Add </a>
-			         </div>
+                <div class="col-auto float-right ml-auto">
+                    <a href="#" class="Addbutton" data-toggle="modal" data-target="#add1"><i class="fa fa-plus"></i> Add </a>
+                </div>
 
                 <!-- Dynamically generate cards -->
                 <div class="row" id="serviceCards">
                     <!-- Service cards will be dynamically populated here -->
                 </div>
-
-         
             </div>
         </div>
     </div>
 </div>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/popper.min.js"></script>
-<!-- <script src="js/bootstrap.min.js"></script> -->
 <script src="js/jquery.slimscroll.min.js"></script>
 
 <script>
     $(document).ready(function() {
         // Function to fetch service details via AJAX
-        function fetchServiceDetails() {
+        function fetchServiceDetails(serviceId) {
             $.ajax({
                 type: 'GET',
-                url: 'subserviceDetails',
+                url: 'subserviceDetails?serviceId=' + serviceId, // Pass serviceId as a parameter
                 dataType: 'json',
                 success: function(data) {
                     console.log('Received data:', data); // Log the received data
@@ -100,13 +93,13 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
             });
         }
 
-     // Function to populate service cards in the UI
+        // Function to populate service cards in the UI
         function populateServiceCards(data) {
             // Initialize an empty string to store the generated HTML for service cards
             var serviceCardsHtml = '';
 
             // Loop through each service object in the data array
-            data.forEach(function(service) {
+            data.forEach(function(subservice) {
                 // Generate the base URL for assets
                 var currentUrl = window.location.href;
                 var baseUrl = currentUrl.split('/').slice(0, 3).join('/');
@@ -114,66 +107,111 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
 
                 // Check if service has an image URL
                 var imageUrl;
-                if (service.imageUrl !== null) {
+                if (subservice.imageUrl !== null) {
                     // Generate the image URL by concatenating the assets URL with the service image URL
-                    imageUrl = assetsUrl + service.imageUrl;
+                    imageUrl = assetsUrl + subservice.imageUrl;
                 } else {
                     // If there's no image URL, use a default image
                     imageUrl = assetsUrl + 'NOImage.jpg';
                 }
-		console.log(imageUrl);
-                // Create the HTML for the current service card
-			            /*   var cardHtml = 
-			    '<div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">' +
-			        '<div class="card dash-widget">' +
-			            '<div class="card-body">' +
-			                '<span class="dash-widget-icon">' +
-			                    '<img src="' + imageUrl + '" style="width: 60px; height: 60px; border-radius: 50%;">' +
-			                '</span>' +
-			                '<div class="dash-widget-info">' +
-			                    '<h4><a href="' + service.url + '" style="text-decoration: none; color: inherit;">' +
-			                        '<br>' +
-			                        '<span>' + (service.subserviceName ? service.subserviceName : 'No Service Name') + '</span>' +
-			                    '</a></h4>' +
-			                '</div>' +
-			            '</div>' +
-			        '</div>' +
-			    '</div>'; */
 
-			    var cardHtml = 
-			        '<div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">' +
-			            '<div class="card dash-widget">' +
-			                '<div class="card-body">' +
-			                    '<span class="dash-widget-icon">' +
-			                        '<img src="' + imageUrl + '" style="width: 60px; height: 60px; border-radius: 50%;">' +
-			                    '</span>' +
-			                    '<div class="dash-widget-info">' +
-			                        '<h4><a href="subsubservice.jsp?subserviceId=' + service.subserviceId + '" style="text-decoration: none; color: inherit;">' +
-			                            '<br>' +
-			                            '<span>' + (service.serviceName ? service.serviceName : 'No Service Name') + '</span>' +
-			                        '</a></h4>' +
-			                    '</div>' +
-			                '</div>' +
-			            '</div>' +
-			        '</div>';
+                var cardHtml = 
+                    '<div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">' +
+                        '<div class="card dash-widget">' +
+                            '<div class="card-body">' +
+                                '<div class="dropdown dropdown-action profile-action">' + // Added dropdown container
+                                    '<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>' +
+                                    '<div class="dropdown-menu dropdown-menu-right">' + // Dropdown menu
+                                        '<a class="dropdown-item editSubService" href="#" data-subservice-id="' + subservice.subserviceId + '" data-image-url="' + subservice.imageUrl + '" data-subservice-name="' + (subservice.subserviceName ? subservice.subserviceName : 'No Service Name') + '" data-service-id="' + subservice.serviceId + '">Edit</a>' +
+                                        '<a class="dropdown-item deleteSubService" href="#" data-subservice-id="' + subservice.subserviceId + '">Delete</a>' + // Delete button
+                                    '</div>' +
+                                '</div>' +
+                                '<span class="dash-widget-icon">' +
+                                    '<img src="' + imageUrl + '" style="width: 60px; height: 60px; border-radius: 50%;">' +
+                                '</span>' +
+                                '<div class="dash-widget-info">' +
+                                    '<h4><a href="subsubservice.jsp?subserviceId=' + subservice.subserviceId + '" style="text-decoration: none; color: inherit;">' +
+                                        '<br>' +
+                                        '<span>' + (subservice.subserviceName ? subservice.subserviceName : 'No Service Name') + '</span>' +
+                                    '</a></h4>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
                 // Append the generated card HTML to the serviceCardsHtml string
                 serviceCardsHtml += cardHtml;
             });
 
             // Set the HTML content of the service cards container
             $('#serviceCards').html(serviceCardsHtml);
+            
+            // Attach event listener to delete buttons
+            attachDeleteButtonListener();
+            attachEditButtonListener();
         }
 
+        // Function to attach event listener to delete buttons
+        function attachDeleteButtonListener() {
+            $('.deleteSubService').click(function(e) {
+                e.preventDefault(); // Prevent default link behavior
+                // Extract subserviceId from the clicked delete button
+                var subserviceId = $(this).data('subservice-id');
+                // Send AJAX request to delete subservice endpoint
+                $.ajax({
+                    type: 'POST',
+                    url: '/subservicedelete',
+                    data: { subserviceId: subserviceId },
+                    success: function(response) {
+                        // Redirect to service page after successful deletion
+                        window.location.href = '/service';
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error deleting subservice:', error);
+                        // Handle error if needed
+                    }
+                });
+            });
+        }
+
+        
+        function attachEditButtonListener() {
+            $('.editSubService').click(function(e) {
+                e.preventDefault(); // Prevent default link behavior
+                
+                // Extract service details from the clicked edit button
+                var subserviceId = $(this).data('subservice-id');
+                var imageUrl = $(this).data('image-url');
+                var subserviceName = $(this).data('subservice-name');
+                var serviceId = $(this).data('service-id'); // Corrected attribute name
+                
+                // Populate the modal fields with service details
+                $('#editsubservice-id').val(subserviceId);
+                $('#editimage_url').val(imageUrl);
+                $('#editsubservicename').val(subserviceName);
+                $('#editserviceid').val(serviceId);
+                
+                // Show the edit modal
+                $('#editModal').modal('show');
+            });
+        }
+
+        
         // Fetch service details when the page loads
-        fetchServiceDetails();
+        var serviceId = '<%= serviceId %>'; // Retrieve serviceId from JSP
+        fetchServiceDetails(serviceId);
 
         // Attach click event to Add Service button to fetch service details
         $('#addServiceButton').click(function() {
-            fetchServiceDetails();
+            fetchServiceDetails(serviceId);
         });
     });
 </script>
-<jsp:include page="service_add.jsp" />
 
+  <jsp:include page="subservice_add.jsp" />  
+  <jsp:include page="subservice_edit.jsp" />
+<%-- <jsp:include page="subservice_add.jsp">
+    <jsp:param name="serviceId" value="<%= serviceId %>" />
+</jsp:include> --%>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

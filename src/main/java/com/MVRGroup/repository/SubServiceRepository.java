@@ -6,5 +6,12 @@ import com.MVRGroup.entity.SubServiceEntity;
 import java.util.List;
 
 public interface SubServiceRepository extends JpaRepository<SubServiceEntity, Integer> {
+	
     List<SubServiceEntity> findAll(); 
+    
+   
+    List<SubServiceEntity> findByServiceId(Integer serviceId);
+
+
+
 }

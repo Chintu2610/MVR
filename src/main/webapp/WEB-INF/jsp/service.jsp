@@ -146,7 +146,7 @@ var cardHtml =
                     '<img src="' + imageUrl + '" style="width: 60px; height: 60px; border-radius: 50%;">' +
                 '</span>' +
                 '<div class="dash-widget-info">' +
-                    '<h4><a href="subservice.jsp?serviceId=' + service.serviceId + '" style="text-decoration: none; color: inherit;">' +
+                    '<h4><a href="subservice?serviceId=' + service.serviceId + '" style="text-decoration: none; color: inherit;">' +
                         '<br>' +
                         '<span>' + (service.serviceName ? service.serviceName : 'No Service Name') + '</span>' +
                     '</a></h4>' +
