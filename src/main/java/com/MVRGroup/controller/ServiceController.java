@@ -139,7 +139,7 @@ public class ServiceController {
 	  
 	  @GetMapping("/service_edit")
 		public String viewservice_editPage() {
-		    return "serviceEdit";
+		    return "service_edit";
 		}
 		/*
 		 * @PostMapping("/serviceedit") public String serviceeditedit(@RequestParam
