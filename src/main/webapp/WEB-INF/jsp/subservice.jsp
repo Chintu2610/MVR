@@ -130,7 +130,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                                     '<img src="' + imageUrl + '" style="width: 60px; height: 60px; border-radius: 50%;">' +
                                 '</span>' +
                                 '<div class="dash-widget-info">' +
-                                    '<h4><a href="subsubservice.jsp?subserviceId=' + subservice.subserviceId + '" style="text-decoration: none; color: inherit;">' +
+                                    '<h4><a href="subsubservice?subserviceId=' + subservice.subserviceId + '" style="text-decoration: none; color: inherit;">' +
                                         '<br>' +
                                         '<span>' + (subservice.subserviceName ? subservice.subserviceName : 'No Service Name') + '</span>' +
                                     '</a></h4>' +
