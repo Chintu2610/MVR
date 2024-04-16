@@ -55,7 +55,7 @@
 
         
         
-            <form id="editForm" action="/subserviceedit" method="POST" enctype="multipart/form-data">
+            <form id="editForm" action="/subsubserviceedit" method="POST" enctype="multipart/form-data">
             <div id="editModal" class="modal custom-modal fade" role="dialog">
  <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -69,24 +69,21 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="col-form-label">ID <span class="text-danger">*</span></label>
-                        <input id="editsubservice-id" name="subservice_id" required class="form-control" type="text">
+                        <input id="editsubsubserviceId" name="subsubserviceId" required class="form-control" type="text">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Upload Image <span class="text-danger">*</span></label>
-                        <input id="editimage_url" name="image_url" required class="form-control" type="text">
+                        <label class="col-form-label"> url <span class="text-danger">*</span></label>
+                        <input id="editurl" name="url" required class="form-control" type="text">
                     </div>
              
-        <div class="form-group">
-            <label for="file">Image Upload <span class="text-danger">*</span></label>
-                    <input name="file" id="file"  class="form-control" type="file">
-        </div>
+
   																																																																					                  <div class="form-group">
-                        <label class="col-form-label">service_name</label>
-                        <textarea id="editsubservicename" name="subservice_name" class="form-control"></textarea>
+                        <label class="col-form-label">title</label>
+                        <textarea id="edittitle" name="title" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">url</label>
-                        <input id="editserviceid" name="service_id" class="form-control" type="text">
+                        <label class="col-form-label">subserviceId</label>
+                        <input id="editsubserviceId" name="subserviceId" class="form-control" type="text">
                     </div>
                 </div>
                 <div class="modal-footer">

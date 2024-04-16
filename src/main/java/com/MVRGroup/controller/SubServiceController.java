@@ -67,7 +67,7 @@ public class SubServiceController {
 	
 	 // STORE DATA	    
     @PostMapping("/subserviceadd")
-    public String addService(@RequestParam("file") MultipartFile file,
+    public  String addService(@RequestParam("file") MultipartFile file,
                              @RequestParam("subservice_name") String subservice_name,
                              @RequestParam("service_id") Integer service_id) {
         try {
