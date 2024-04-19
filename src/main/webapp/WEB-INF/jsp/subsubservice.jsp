@@ -112,6 +112,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
 		    '<button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
 		    '<i class="fas fa-ellipsis-v"></i>' + // Kebab icon
 		    '</button>' +
+		    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="share-icon"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.06-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.65 1.35 3 3 3s3-1.35 3-3-1.35-3-3-3z"/></svg>' + // Share icon
 		    '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">' +
 		    '<a class="dropdown-item editSubService" href="#" data-sss="' + video.subsubserviceId + '" data-tite="' + (video.title ? video.title : 'No Service Name') + '" data-url="' + video.url + '" data-subservice222="' + video.subserviceId + '">Edit</a>' +
 		    '<a class="dropdown-item deleteSubService" href="#" data-ffff="' + video.subsubserviceId + '">Delete</a>' +
@@ -122,6 +123,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
 		    '<input type="checkbox" name="video" value="' + video.url + '"><br>' +
 		    '<iframe width="200" height="100" src="' + video.url + '" frameborder="0" allowfullscreen></iframe>' + // Add iframe here
 		    '</div>');
+
 
 
                         	dropdownMenu.appendTo(videoElement.find('.dropdown'));

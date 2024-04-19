@@ -48,6 +48,7 @@ public class UserController {
 	        approvestatus = "approved";
 	    } else {
 	        approvestatus = "not approved";
+	        paid250="pending";
 	    }
 
 		User entityy = new User();

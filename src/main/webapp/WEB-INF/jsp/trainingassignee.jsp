@@ -90,17 +90,17 @@ if (newRecordsPerPageParam != null) {
                     $.each(data, function (index, user) {
                         var row = '<tr>' +
                            /*  '<td>' + user.trainingassigneid + '</td>' + */
-                            '<td>' + user.userid + '</td>' +
-                            '<td>' + user.trainingid + '</td>' +
-                            '<td>' + user.trainingassignestatus + '</td>';
+                            '<td style="width: 100px;">' + user.userid + '</td>' +
+                            '<td style="width: 100px;">' + user.trainingid + '</td>' +
+                            '<td style="width: 200px;">' + user.trainingassignestatus + '</td>';
 
                         if (user.trainingassignestatus === "completed") {
-                            row += '<td><button class="btn btn-success" disabled>Complete</button></td>';
+                            row += '<td style="width: 200px;"><button class="btn btn-success" disabled>Complete</button></td>';
                         } else {
-                            row += '<td><button onclick="approveUser(' + user.trainingassigneid + ')" class="btn btn-success">Complete</button></td>';
+                            row += '<td style="width: 200px;"><button onclick="approveUser(' + user.trainingassigneid + ')" class="btn btn-success">Complete</button></td>';
                         }
 
-                        row += '<td style="width:300px;">' +
+                        row += '<td style="width:200px;">' +
                             '<button class="btn btn-primary btn-sm editBtn">Edit</button>&nbsp;&nbsp;' +
                             '<button class="btn btn-danger btn-sm deleteBtn">Delete</button>' +
                             '</td>' +
@@ -191,7 +191,7 @@ if (newRecordsPerPageParam != null) {
                             Welcome <%= username %>!
                         </div>
                               <div class="col">
-								<h3 class="page-title">Training Assigne</h3>
+								<h3 class="page-title">Training Assignee</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="admin_dashboard">Dashboard</a></li>
 									<li class="breadcrumb-item active">users</li>
@@ -209,17 +209,17 @@ if (newRecordsPerPageParam != null) {
       <div class="col-auto float-right ml-auto">
 
 			         </div>
-	        <table id="userTable" class="table-striped custom-table mb-0 datatable">
+	        <table id="userTable" class="table-striped custom-table mb-0 datatable" style="width: 800px;">
                         <thead>
                             <tr>
 
 
                           <!--   <th>ID</th> -->
-                            <th>UserID</th>
-					        <th>Training ID</th>
-					        <th>Status</th>
-					        <th>Completed/Not</th>
-					        <th>Action</th>
+                            <th style="width: 100px;">UserID</th>
+					        <th style="width: 100px;">Training ID</th>
+					        <th style="width: 200px;">Status</th>
+					        <th style="width: 200px;" >Completed/Not</th>
+					        <th  style="width: 200px; ">Action</th>
                             </tr>
                         </thead>
                         <tbody>

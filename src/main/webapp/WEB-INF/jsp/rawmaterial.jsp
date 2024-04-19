@@ -144,16 +144,16 @@ if (newRecordsPerPageParam != null) {
                     	var formattedExpiryDate = moment(user.expiryDate).format('YYYY-MM-DD'); // Format the expiryDate
 
                         var row = '<tr>' +
-                        '<td>' + user.rawMaterialID + '</td>' +
+                        '<td style="width: 100px;">' + user.rawMaterialID + '</td>' +
                         
-                        '<td>' + user.description + '</td>' +
-                        '<td>' + formattedExpiryDate + '</td>' +
-                        '<td>' + user.name + '</td>' +
-                        '<td>' + user.quantityAvailable + '</td>' +
-                        '<td>' + user.storageConditions + '</td>' +
-                        '<td>' + user.supplierName + '</td>' +
-                        '<td>' + user.unitPrice + '</td>' +
-                            '<td style="width:300px;">' +
+                        '<td style="width: 150px;">' + user.description + '</td>' +
+                        '<td style="width: 150px;">' + formattedExpiryDate + '</td>' +
+                        '<td style="width: 150px;">' + user.name + '</td>' +
+                        '<td style="width: 150px;">' + user.quantityAvailable + '</td>' +
+                        '<td style="width: 150px;">' + user.storageConditions + '</td>' +
+                        '<td style="width: 150px;">' + user.supplierName + '</td>' +
+                        '<td style="width: 150px;">' + user.unitPrice + '</td>' +
+                            '<td style="width:200px;">' +
                             '<button class="btn btn-primary btn-sm editBtn">Edit</button>&nbsp;&nbsp;' +
                             '<button class="btn btn-danger btn-sm deleteBtn">Delete</button>' +
                             '</td>' +
@@ -199,7 +199,7 @@ if (newRecordsPerPageParam != null) {
                             Welcome <%= username %>!
                         </div>
                               <div class="col">
-								<h3 class="page-title">Users</h3>
+								<h3 class="page-title">Raw Materials</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
 									<li class="breadcrumb-item active">users</li>
@@ -217,27 +217,28 @@ if (newRecordsPerPageParam != null) {
       <div class="col-auto float-right ml-auto">
 
 			         </div>
-	        <table id="userTable" class="table-striped custom-table mb-0 datatable">
+			         <div style="height: 400px; overflow: auto;">
+	        <table id="userTable" class="table-striped custom-table mb-0 datatable" style="width: 900px;">
                         <thead>
                             <tr>
 
 
-                            <th>ID</th>
-							
-					        <th>Description</th>
-					        <th>Expiry Date</th>
-					        <th>Name</th>
-					        <th>Quantity Available</th>
-					        <th>Storage Conditions</th>
-					        <th>Supplier Name</th>
-					        <th>Unit Price</th>
-                                
+                            <th style="width: 100px;">ID</th>
+					         <th style="width: 150px;">Description</th>
+					         <th style="width: 150px;">Expiry Date</th>
+					         <th style="width: 150px;">Name</th>
+					         <th style="width: 150px;">Quantity Available</th>
+					         <th style="width: 150px;">Storage Conditions</th>
+					         <th style="width: 150px;">Supplier Name</th>
+					         <th style="width: 150px;">Unit Price</th>
+                              <th style="width: 200px; text-align:center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- User data will be populated here -->
                         </tbody>
                     </table>
+                     </div>
        </div>
        </div>
          
