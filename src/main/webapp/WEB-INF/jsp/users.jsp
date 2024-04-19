@@ -119,7 +119,7 @@ function showAllUserDetails() {
             // Iterate over each user data and append a new row to the table
             $.each(data, function (index, user) {
                 var row = '<tr>' +
-                          '<td>' + user.userid + '</td>' +
+                          '<td style= "width: 250px;">' + user.userid + '</td>' +
                           '<td>' + user.name + '</td>' +
                           '<td>' + user.email + '</td>' +
                           '<td>' + user.phoneNum + '</td>' +
@@ -207,8 +207,9 @@ function approveUser(userId) {
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <th>payment</th>
+                                <th>Payment</th>
                                 <th>Approve status</th>
+                                <th>Approve Button</th>
                             </tr>
                         </thead>
                         <tbody>

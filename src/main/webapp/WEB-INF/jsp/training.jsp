@@ -192,7 +192,7 @@ if (newRecordsPerPageParam != null) {
       <div class="col-auto float-right ml-auto">
 
 			         </div>
-	        <table id="userTable" class="table-striped custom-table mb-0 datatable">
+	        <table id="userTable" class="table-striped custom-table mb-0 datatable" style="width: 600px;">
                         <thead>
                             <tr>
 

@@ -165,7 +165,7 @@ if (newRecordsPerPageParam != null) {
                             Welcome <%= username %>!
                         </div>
                               <div class="col">
-								<h3 class="page-title">Users</h3>
+								<h3 class="page-title">Works</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
 									<li class="breadcrumb-item active">users</li>
@@ -183,14 +183,14 @@ if (newRecordsPerPageParam != null) {
       <div class="col-auto float-right ml-auto">
 
 			         </div>
-	        <table id="userTable" class="table-striped custom-table mb-0 datatable">
+	        <table id="userTable" class="table-striped custom-table mb-0 datatable" style="width: 600px;">
                         <thead>
                             <tr>
 
 
                                 <th>Work ID</th>
                                 <th>Work Name</th>
-                                
+                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
