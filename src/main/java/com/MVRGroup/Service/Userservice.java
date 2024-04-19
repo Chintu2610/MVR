@@ -4,9 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.MVRGroup.entity.TrainingEntity;
 import com.MVRGroup.entity.User;
+import com.MVRGroup.repository.TrainingRepository;
 import com.MVRGroup.repository.UserRepository;
 
 
@@ -14,7 +18,7 @@ import com.MVRGroup.repository.UserRepository;
 @Service
 public class Userservice {
 	@Autowired
-	private UserRepository repository;
+	private UserRepository userrepository;
 	public User UserRegistration(User entity)
 	{
 		Optional<User> obj=repository.findByEmail(entity.getEmail());
@@ -52,6 +56,7 @@ public class Userservice {
 			}
 	        return null;		
 	}
+	
 	public List<User> getAllUsers()
 	{
 			List<User> users= repository.findAll();					
@@ -93,4 +98,62 @@ public class Userservice {
 		}
 		return "cant update user";		
 	}
+	
+	
+	@Autowired
+	private UserRepository repository;
+	public User saveUser(User entity)
+	{
+		  return repository.save(entity);
+}
+	
+	
+	
+	 public User getUserById(Integer userId) {
+	        return repository.findById(userId).orElse(null);
+	    }
+	
+	
+	 
+	 public String DeleteUser(int userId) {
+			Optional<User> work = repository.findById(userId);
+			if (work.isPresent()) {
+			    
+				repository.delete(work.get());
+			    return "Work deleted successfully";
+			}
+
+			 return " ID " + userId + " not found";
+			   
+		}	
+	 
+	 
+	 
+	 
+	 public ResponseEntity<String> EditUser(User service) {
+		    Optional<User> existingServiceOptional = repository.findById(service.getUserid());
+		    
+		    if (existingServiceOptional.isPresent()) {
+		    	User existingsss = existingServiceOptional.get();
+
+		    	
+		    	existingsss.setName(service.getName());
+		    	existingsss.setAddress(service.getAddress());
+		    	existingsss.setEmail(service.getEmail());
+		    	existingsss.setPassword(service.getPassword());
+		    	existingsss.setPhoneNum(service.getPhoneNum());
+		    	existingsss.setRoleid(service.getRoleid());
+		    	    existingsss.setPaid250(service.getPaid250());
+		    	    existingsss.setApprovestatus(service.getApprovestatus());
+
+		        repository.save(existingsss);
+		        
+		        return ResponseEntity.ok("  updated successfully");
+		    } else {
+		        // Raw material not found in the repository
+		        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Raw material with ID " + service.getUserid() + " not found");
+		    }
+		}
+	 
+	 
 }

@@ -7,12 +7,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 @Entity
-@Table
+@Table(name = "user")
 public class User {
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int userid;
+	
+	
+	
 	@Column
 	private String Name;
 	@Column
@@ -25,6 +28,21 @@ public class User {
 	private int roleid;
 	@Column
 	private String address;
+	
+	 @Column(name = "paid250")
+	    private String paid250;
+	 
+	 public String getPaid250() {
+		return paid250;
+	}
+	public void setPaid250(String paid250) {
+		this.paid250 = paid250;
+	}
+
+	@Column(name = "approvestatus")
+	    private String approvestatus;
+	
+	
 	public int getUserid() {
 		return userid;
 	}
@@ -57,6 +75,12 @@ public class User {
 	}
 	public int getRoleid() {
 		return roleid;
+	}
+	public String getApprovestatus() {
+		return approvestatus;
+	}
+	public void setApprovestatus(String approvestatus) {
+		this.approvestatus = approvestatus;
 	}
 	public void setRoleid(int roleid) {
 		this.roleid = roleid;
