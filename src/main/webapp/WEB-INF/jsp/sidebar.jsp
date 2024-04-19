@@ -52,8 +52,12 @@
          <li class="list-group-item"><a href="assign_work">Assign Work</a></li>
          
          <li class="list-group-item"><a href="works">All available Works</a></li>
+         
+         <li class="list-group-item"><a href="trainingassignee">Training Assignee</a></li>
         
+         <li class="list-group-item"><a href="training">Training </a></li>
     
+    	 <li class="list-group-item"><a href="users">User Details </a></li>
     </ul>
 </aside>
 

@@ -71,10 +71,40 @@ if (newRecordsPerPageParam != null) {
  }
 
 </script>
+
 <script>
 $(document).ready(function () {
     showAllUserDetails();
 });
+
+function deleteRawMaterial(ID) {
+    // Perform the delete operation using AJAX
+    $.ajax({
+        type: 'POST',
+        url: '/userdelete',
+        data: { userid: ID },
+        success: function(response) {
+            window.location.reload();
+        },
+        error: function(xhr, status, error) {
+            // Handle error response
+            alert('Error: ' + error);
+        }
+    });
+}
+
+function editRawMaterial(userid, name, email, phoneNum, paid250, approvestatus) {
+    $('#edituserid').val(userid);
+    $('#editname').val(name);
+    $('#editemail').val(email);
+    $('#editphoneNum').val(phoneNum);
+    $('#editaddress').val(address);
+    $('#editpaid250').val(paid250);
+    $('#editapprovestatus').val(approvestatus);
+
+    // Show the edit modal
+    $('#editModal').modal('show');
+}
 
 function showAllUserDetails() {
     // Make an AJAX request to the server-side endpoint to fetch all user details
@@ -89,14 +119,26 @@ function showAllUserDetails() {
             // Iterate over each user data and append a new row to the table
             $.each(data, function (index, user) {
                 var row = '<tr>' +
-               			 '<td>' + user.userid + '</td>' +
-               			/*  '<td><input type="radio" name="selectedEmail" value="' + user.email + '"></td>' +              			  '<td>' + user.userid + '</td>' + */
+                          '<td>' + user.userid + '</td>' +
                           '<td>' + user.name + '</td>' +
                           '<td>' + user.email + '</td>' +
                           '<td>' + user.phoneNum + '</td>' +
                           '<td>' + user.address + '</td>' +
-                          // Add more columns as needed
-                          '</tr>';
+                          '<td>' + user.paid250 + '</td>' +
+                          '<td>' + user.approvestatus + '</td>' +
+                          '<td>'; // Start button column
+                if (user.approvestatus === "approved") {
+                    row += '<button class="btn btn-success" disabled>Approve</button>'; // Disable the button if already approved
+                } else {
+                    row += '<button onclick="approveUser(' + user.userid + ')" class="btn btn-success">Approve</button>'; // Add an Approve button
+                }
+                row += '</td>';
+                /* row += '<td style="width:300px;">' + // Add the delete and edit button columns
+                       '<button class="btn btn-danger btn-sm deleteBtn" onclick="deleteRawMaterial(' + user.userid + ')">Delete</button>' +
+                       '<button class="btn btn-primary btn-sm editBtn" onclick="editRawMaterial(' + user.userid + ', \'' + user.name + '\', \'' + user.email + '\', \'' + user.phoneNum +'\', \'' + user.address '\', \'' + user.paid250 + '\', \'' + user.approvestatus + '\')">Edit</button>' +
+                       '</td>' +
+                       '</tr>'; */ // End button column and row
+                
                 $('#userTable tbody').append(row);
             });
         },
@@ -106,8 +148,22 @@ function showAllUserDetails() {
     });
 }
 
-		
-		</script>
+function approveUser(userId) {
+    // Make an AJAX request to update the approve status for the user with the given userId
+    $.ajax({
+        type: 'POST',
+        url: '/approveUser', // Specify the endpoint to handle the approval
+        data: { userId: userId },
+        success: function (response) {
+            // If the approval was successful, refresh the user details table
+            showAllUserDetails();
+        },
+        error: function (error) {
+            console.error('Error approving user:', error);
+        }
+    });
+}
+</script>
 
 </head>
 <body>
@@ -151,6 +207,8 @@ function showAllUserDetails() {
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
+                                <th>payment</th>
+                                <th>Approve status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -168,7 +226,7 @@ function showAllUserDetails() {
    </div>
 
 
-
+<jsp:include page="useredit.jsp" /> 
 
     <!-- Bootstrap Core JS -->
     <script src="js/popper.min.js"></script>
