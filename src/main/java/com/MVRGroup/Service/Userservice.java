@@ -155,5 +155,13 @@ public class Userservice {
 		    }
 		}
 	 
-	 
+	 public String getUsernameById(Integer userId) {
+	        // Retrieve user by ID from the repository
+	        User user = getUserById(userId);
+	        if (user != null) {
+	            return user.getName();
+	        } else {
+	            return "Unknown"; // Or handle the case when the user ID doesn't exist
+	        }
+	    }
 }

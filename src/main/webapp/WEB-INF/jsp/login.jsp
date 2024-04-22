@@ -8,7 +8,7 @@
     <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
     <meta name="author" content="Dreamguys- Bootstrap Admin Template">
     <meta name="robots" content="noindśex, nofollow">
-    <title>Login - WeblabsHrms admin</title>
+    <title>Login -  admin</title>
     <!-- Favicon -->
     <link rel	="shortcut icon" type="image/x-icon" href="assets/logo.png">
     <!-- Bootstrap CSS -->
