@@ -1,6 +1,8 @@
 package com.MVRGroup.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +30,39 @@ public class WorkAssignController {
 		return "assign_work";
 	}
 	 @PostMapping("/assign_work")
-	    public String assignWorkUser(@RequestParam String email,@RequestParam String work)
+	    public String assignWorkUser(@RequestParam String email,@RequestParam String work,@RequestParam Map<String, String> rawMaterials)
 		{
-		 adminservice.AssignWork(email,work);
+		 Map<String, Integer> rawMaterials1 = new HashMap<>();
+
+		    // Iterate over the rawMaterials map to filter out raw materials with quantities greater than 0
+		 for (Map.Entry<String, String> entry : rawMaterials.entrySet()) {
+		        String key = entry.getKey(); // Raw material name
+		        String valueString = entry.getValue(); // Quantity as String
+
+		        // Parse the quantity string to an integer
+		        
+
+		        // Check if the key (raw material name) contains "_quantity" and the quantity is greater than 0
+		        if (key.endsWith("_quantity")) {
+		            try {
+		                // Parse the quantity string to an integer
+		                int quantity = Integer.parseInt(valueString);
+
+		                // Check if the quantity is greater than 0
+		                if (quantity > 0) {
+		                    // Extract the raw material name by removing "_quantity" from the key
+		                    String rawMaterialName = key.substring(0, key.lastIndexOf("_quantity"));
+
+		                    // Add the raw material name and its quantity to the new map
+		                    rawMaterials1.put(rawMaterialName, quantity);
+		                }
+		            } catch (NumberFormatException e) {
+		                // Handle cases where the quantity cannot be parsed as an integer
+		                // Log an error or take appropriate action
+		            }
+		        }
+		    }
+	        adminservice.AssignWork(email,work,rawMaterials1);
 			return  "redirect:/assign_work";
 		}
 	 @GetMapping("/getAvailableWorks")
@@ -46,9 +78,10 @@ public class WorkAssignController {
 		    	    .map(workAssign -> {
 		    	        WorkAssignDTO workAssignDTO = new WorkAssignDTO();
 		    	        // Map common properties
-		    	        workAssignDTO.setId(workAssign.getId());
+		    	        workAssignDTO.setId(workAssign.getWorkid());
 		    	        workAssignDTO.setEmail(workAssign.getEmail());
 		    	        workAssignDTO.setAssignedWork(workAssign.getAssignedWork());
+		    	        workAssignDTO.setStatus(workAssign.getStatus());
 		    	        // Map user ID from associated User entity
 		    	        if (workAssign.getUser() != null) {
 		    	            workAssignDTO.setUserId(workAssign.getUser().getUserid());

@@ -16,7 +16,7 @@ import lombok.Data;
 public class WorkAssign {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int workid;
 
     @Column(name = "email") // Assuming email is the column name in the database
     private String email;
@@ -27,6 +27,7 @@ public class WorkAssign {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid", referencedColumnName = "userid") // Assuming userid is the foreign key column in AssignedUserWork table
     private User user;
-
+    @Column
+	 private String status;
    
 }

@@ -1,6 +1,7 @@
 package com.MVRGroup.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService.Work;
@@ -9,8 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.MVRGroup.entity.AssignedRawMaterial;
+import com.MVRGroup.entity.RawmaterialEntity;
 import com.MVRGroup.entity.WorkAssign;
 import com.MVRGroup.entity.Works;
+import com.MVRGroup.repository.AssignedRawmaterialRepo;
+import com.MVRGroup.repository.RawmaterialRepository;
 import com.MVRGroup.repository.WorkAssignRepo;
 import com.MVRGroup.repository.WorksRepo;
 
@@ -20,9 +25,29 @@ public class AdminWorkAssignService {
 	WorkAssignRepo workAssignRepo;
 	@Autowired
 	WorksRepo worksrepo;
-	public void AssignWork(String email,String work)
+	@Autowired
+	AssignedRawmaterialRepo assignrawmaterialrepo;
+	public void AssignWork(String email,String work, Map<String, Integer> rawMaterials)
 	{
-		workAssignRepo.assignWork(email,work,email);
+		String status="placed";
+		 WorkAssign workAssign = new WorkAssign();
+	        workAssign.setEmail(email);
+	        workAssign.setAssignedWork(work);
+	        workAssign.setStatus(status);
+		workAssignRepo.assignWork(email,work,email,status);
+		Long workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work); 
+		/*
+		 * Long workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work);
+		 */
+		 
+	        // Store raw material details along with the retrieved workid
+	        for (Map.Entry<String, Integer> entry : rawMaterials.entrySet()) {
+	            AssignedRawMaterial rawMaterial = new AssignedRawMaterial();
+	            rawMaterial.setName(entry.getKey());
+	            rawMaterial.setQuantity(entry.getValue());
+	            rawMaterial.setWorkId(workId);
+	            assignrawmaterialrepo.save(rawMaterial);
+	        }
 	}
 	public List<Works> getAvailableWorks() {
 		// TODO Auto-generated method stub

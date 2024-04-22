@@ -12,10 +12,10 @@ import jakarta.transaction.Transactional;
 public interface WorkAssignRepo extends JpaRepository<WorkAssign,Integer>{
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO assigned_user_work (userid, assigned_work, email) " +
-            "VALUES ((SELECT userid FROM user WHERE email = ?1), ?2, ?3)",
+    @Query(value = "INSERT INTO assigned_user_work (userid, assigned_work, email,status) " +
+            "VALUES ((SELECT userid FROM user WHERE email = ?1), ?2, ?3,?4)",
     nativeQuery = true)
-    void assignWork(String email, String work, String userEmail);
-    
+    void assignWork(String email, String work, String userEmail, String status);
 
-}
+    @Query(value = "SELECT wa.workid FROM WorkAssign wa WHERE wa.email = ?1 AND wa.assignedWork = ?2")
+    Long findWorkidByEmailAndAssignedWork(String email, String assignedWork);}
