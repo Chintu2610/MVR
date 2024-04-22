@@ -29,10 +29,13 @@ public class AdminWorkAssignService {
 	AssignedRawmaterialRepo assignrawmaterialrepo;
 	public void AssignWork(String email,String work, Map<String, Integer> rawMaterials)
 	{
+		String status="placed";
 		 WorkAssign workAssign = new WorkAssign();
 	        workAssign.setEmail(email);
 	        workAssign.setAssignedWork(work);
-		workAssignRepo.assignWork(email,work,email);
+	        workAssign.setStatus(status);
+		workAssignRepo.assignWork(email,work,email,status);
+		Long workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work); 
 		/*
 		 * Long workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work);
 		 */
@@ -42,7 +45,7 @@ public class AdminWorkAssignService {
 	            AssignedRawMaterial rawMaterial = new AssignedRawMaterial();
 	            rawMaterial.setName(entry.getKey());
 	            rawMaterial.setQuantity(entry.getValue());
-	            rawMaterial.setWorkAssign(workAssign);
+	            rawMaterial.setWorkId(workId);
 	            assignrawmaterialrepo.save(rawMaterial);
 	        }
 	}

@@ -27,7 +27,13 @@ public class AssignedRawMaterial {
 	    @Column
 	    private int quantity;
 
-	    @ManyToOne
-	    @JoinColumn(name = "workid", referencedColumnName = "workid")
-	    private WorkAssign workAssign;
+		/*
+		 * @ManyToOne
+		 * 
+		 * @JoinColumn(name = "workid", referencedColumnName = "workid") private
+		 * WorkAssign workAssign;
+		 */
+	    @Column(name = "workid")
+	    private Long workId;
+
 }

@@ -81,6 +81,7 @@ public class WorkAssignController {
 		    	        workAssignDTO.setId(workAssign.getWorkid());
 		    	        workAssignDTO.setEmail(workAssign.getEmail());
 		    	        workAssignDTO.setAssignedWork(workAssign.getAssignedWork());
+		    	        workAssignDTO.setStatus(workAssign.getStatus());
 		    	        // Map user ID from associated User entity
 		    	        if (workAssign.getUser() != null) {
 		    	            workAssignDTO.setUserId(workAssign.getUser().getUserid());

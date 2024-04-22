@@ -249,7 +249,7 @@ function showAssignedWorks() {
                 var row = '<tr>' +
                     '<td>' + assignedWork.assignedWork + '</td>' +
                     '<td>' + assignedWork.email + '</td>' +
-                    '<td>' + assignedWork.userId + '</td>' +
+                    '<td>' + assignedWork.status + '</td>' +
                     '</tr>';
                 $('#assignedWorksTableBody').append(row);
             });
@@ -270,7 +270,7 @@ function showAssignedWorks() {
             <tr>
                 <th>Assigned Work</th>
                 <th>Email</th>
-                <th>Name</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody id="assignedWorksTableBody">
