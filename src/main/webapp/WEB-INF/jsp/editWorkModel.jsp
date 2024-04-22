@@ -71,7 +71,7 @@
         </div>
         <div class="form-group">
             <label class="col-form-label">Name <span class="text-danger">*</span></label>
-            <input id="editWorkName" name="workname" required class="form-control" type="text">
+            <input id="editname" name="workname" required class="form-control" type="text">
         </div>
 </div>
 

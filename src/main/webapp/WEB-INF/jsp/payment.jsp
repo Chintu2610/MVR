@@ -71,45 +71,20 @@ if (newRecordsPerPageParam != null) {
  }
 
 </script>
+
 <script>
 $(document).ready(function () {
     showAllUserDetails();
 });
 
-function deleteRawMaterial(ID) {
-    // Perform the delete operation using AJAX
-    $.ajax({
-        type: 'POST',
-        url: '/userdelete',
-        data: { userid: ID },
-        success: function(response) {
-            window.location.reload();
-        },
-        error: function(xhr, status, error) {
-            // Handle error response
-            alert('Error: ' + error);
-        }
-    });
-}
 
-function editRawMaterial(userid, name, email, phoneNum, address, paid250, approvestatus) {
-    $('#edituserid').val(userid);
-    $('#editname').val(name);
-    $('#editemail').val(email);
-    $('#editphoneNum').val(phoneNum);
-    $('#editaddress').val(address);
-    $('#editpaid250').val(paid250);
-    $('#editapprovestatus').val(approvestatus);
 
-    // Show the edit modal
-    $('#editModal').modal('show');
-}
 
 function showAllUserDetails() {
     // Make an AJAX request to the server-side endpoint to fetch all user details
     $.ajax({
         type: 'GET',
-        url: 'userDetails',
+        url: 'PaymentDetails',
         dataType: 'json',
         success: function (data) {
             // Clear the table body before populating with new data
@@ -118,26 +93,13 @@ function showAllUserDetails() {
             // Iterate over each user data and append a new row to the table
             $.each(data, function (index, user) {
                 var row = '<tr>' +
-                          '<td style= "width: 250px;">' + user.userid + '</td>' +
-                          '<td>' + user.name + '</td>' +
-                          '<td>' + user.email + '</td>' +
-                          '<td>' + user.phoneNum + '</td>' +
-                          '<td>' + user.address + '</td>' +
-                          '<td>' + user.paid250 + '</td>' +
-                          '<td>' + user.approvestatus + '</td>' +
-                          '<td>'; // Start button column
-                if (user.approvestatus === "approved") {
-                    row += '<button class="btn btn-success" disabled>Approve</button>'; // Disable the button if already approved
-                } else {
-                    row += '<button onclick="approveUser(' + user.userid + ')" class="btn btn-success">Approve</button>'; // Add an Approve button
-                }
-                row += '</td>';
-                row += '<td style="width:300px;">' + // Add the delete and edit button columns
-                  '<button class="btn btn-danger btn-sm deleteBtn" onclick="deleteRawMaterial(' + user.userid + ')">Delete</button>' +  
-                     '<button class="btn btn-primary btn-sm editBtn" onclick="editRawMaterial(' + user.userid + ', \'' + user.name + '\', \'' + user.email + '\', \'' + user.phoneNum +'\', \'' + user.address + '\', \'' + user.paid250 + '\', \'' + user.approvestatus + '\')">Edit</button>' + 
-                       '</td>' +
-                       '</tr>';  // End button column and row
-                
+                          '<td style= "width: 250px;">' + user.paymentid + '</td>' +
+                          '<td>' + user.userid + '</td>' +
+                          '<td>' + user.paymentAmt + '</td>' +
+                          '<td>' + user.paymentMethod + '</td>' +
+                          '<td>' + user.date + '</td>' +
+                          '<td>' + user.status + '</td>' +
+                          '<td>'; 
                 $('#userTable tbody').append(row);
             });
         },
@@ -147,21 +109,6 @@ function showAllUserDetails() {
     });
 }
 
-function approveUser(userId) {
-    // Make an AJAX request to update the approve status for the user with the given userId
-    $.ajax({
-        type: 'POST',
-        url: '/approveUser', // Specify the endpoint to handle the approval
-        data: { userId: userId },
-        success: function (response) {
-            // If the approval was successful, refresh the user details table
-            showAllUserDetails();
-        },
-        error: function (error) {
-            console.error('Error approving user:', error);
-        }
-    });
-}
 </script>
 
 </head>
@@ -183,10 +130,10 @@ function approveUser(userId) {
                             Welcome <%= username %>!
                         </div>
                               <div class="col">
-								<h3 class="page-title">Users</h3>
+								<h3 class="page-title">Payments</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
-									<li class="breadcrumb-item active">users</li>
+									<li class="breadcrumb-item active">Payments</li>
 								</ul>
 							</div>
                     </div>
@@ -200,15 +147,12 @@ function approveUser(userId) {
                         <thead>
                             <tr>
 
-
-                                <th>User ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>Payment</th>
-                                <th>Approve status</th>
-                                <th>Approve Button</th>
+                                <th>Payment ID</th>
+                       		   <th>user ID</th>
+                                <th>Payment Amt</th>
+                                <th>Payment Method</th>
+                                <th>Date</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -226,19 +170,12 @@ function approveUser(userId) {
    </div>
 
 
-<jsp:include page="useredit.jsp" /> 
 
-    <!-- Bootstrap Core JS -->
+
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
-    <!-- Slimscroll JS -->
     <script src="js/jquery.slimscroll.min.js"></script>
-
-    <!-- Select2 JS -->
     <script src="js/select2.min.js"></script>
-
-    <!-- Datetimepicker JS -->
     <script src="js/moment.min.js"></script>
     <script src="js/bootstrap-datetimepicker.min.js"></script>
 
