@@ -222,7 +222,12 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
         });
     }
 </script>
-
+<div class="form-group row">
+                            <label for="assigned_work" class="col-sm-2 col-form-label">DeadLine<span class="text-danger">*</span></label>
+                            <div class="col-sm-8">
+                                 <input name="deadLine"  class="form-control" type="date">
+                            </div>
+                        </div>
 	  
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary submit-btn">Assign</button>
@@ -250,6 +255,7 @@ function showAssignedWorks() {
                     '<td>' + assignedWork.assignedWork + '</td>' +
                     '<td>' + assignedWork.email + '</td>' +
                     '<td>' + assignedWork.status + '</td>' +
+                    '<td>' + assignedWork.deadline + '</td>' +
                     '</tr>';
                 $('#assignedWorksTableBody').append(row);
             });
@@ -271,6 +277,7 @@ function showAssignedWorks() {
                 <th>Assigned Work</th>
                 <th>Email</th>
                 <th>Status</th>
+                <th>Deadline</th>
             </tr>
         </thead>
         <tbody id="assignedWorksTableBody">

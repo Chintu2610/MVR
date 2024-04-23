@@ -27,14 +27,14 @@ public class AdminWorkAssignService {
 	WorksRepo worksrepo;
 	@Autowired
 	AssignedRawmaterialRepo assignrawmaterialrepo;
-	public void AssignWork(String email,String work, Map<String, Integer> rawMaterials)
+	public void AssignWork(String email,String work, Map<String, Integer> rawMaterials, String deadLine)
 	{
 		String status="placed";
 		 WorkAssign workAssign = new WorkAssign();
 	        workAssign.setEmail(email);
 	        workAssign.setAssignedWork(work);
 	        workAssign.setStatus(status);
-		workAssignRepo.assignWork(email,work,email,status);
+		workAssignRepo.assignWork(email,work,email,status, deadLine);
 		Long workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work); 
 		/*
 		 * Long workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work);
