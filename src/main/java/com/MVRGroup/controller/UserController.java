@@ -43,15 +43,15 @@ public class UserController {
 	                         // @RequestParam("approvestatus") String approvestatus,
 	                          @RequestParam("roleid") Integer roleid) {
 
-	    String approvestatus; // Declare approvestatus here
-
+	    String approvestatus; 
+	   
 	    if ("success".equals(paid250)) {
 	        approvestatus = "approved";
 	    } else {
 	        approvestatus = "not approved";
 	        paid250="pending";
 	    }
-
+	    String assignedworkstatus = "Not Available";
 		User entityy = new User();
 	    entityy.setName(name);
 	    entityy.setAddress(address);
@@ -61,6 +61,7 @@ public class UserController {
 	    entityy.setRoleid(roleid);
 	    entityy.setPaid250(paid250);
 	    entityy.setApprovestatus(approvestatus);
+	    entityy.setAssignedworkstatus(assignedworkstatus);
 	 
 
 	    try {
@@ -149,4 +150,27 @@ public class UserController {
 	        }
 	    }
 
+	    @GetMapping("/getUsername")
+	    public ResponseEntity<String> getUsernameById(@RequestParam("userId") Integer userId) {
+	        try {
+	            User user = userservice.getUserById(userId);	            
+	            if (user != null) {
+	                return ResponseEntity.ok(user.getName());
+	            } else {
+	                // If the user does not exist, return an appropriate response
+	                return ResponseEntity.notFound().build();
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	        }
+	    }
+
+
+		 @GetMapping("/users_available")
+			public String viewusers_availablePage() {
+			    return "users_available";
+			}
+		   
+		    
 }

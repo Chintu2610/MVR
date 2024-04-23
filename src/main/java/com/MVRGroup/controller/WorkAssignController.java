@@ -30,7 +30,7 @@ public class WorkAssignController {
 		return "assign_work";
 	}
 	 @PostMapping("/assign_work")
-	    public String assignWorkUser(@RequestParam String email,@RequestParam String work,@RequestParam Map<String, String> rawMaterials,@RequestParam String deadLine)
+	    public String assignWorkUser(@RequestParam String email,@RequestParam String work,@RequestParam Map<String, String> rawMaterials)
 		{
 		 Map<String, Integer> rawMaterials1 = new HashMap<>();
 
@@ -62,14 +62,19 @@ public class WorkAssignController {
 		            }
 		        }
 		    }
-	        adminservice.AssignWork(email,work,rawMaterials1,deadLine);
+	        adminservice.AssignWork(email,work,rawMaterials1, work);
 			return  "redirect:/assign_work";
 		}
+	 
+	 
 	 @GetMapping("/getAvailableWorks")
 	 public ResponseEntity<List<Works>> getAvailableWorks() {
 	        List<Works> availableWorks = adminservice.getAvailableWorks();
 	        return ResponseEntity.ok(availableWorks);
 	    }
+	 
+	 
+	 
 	 @GetMapping("/getAllAssignedWorks")
 
 	 public ResponseEntity<List<WorkAssignDTO>> getAllAssignedWorks() {
@@ -82,7 +87,6 @@ public class WorkAssignController {
 		    	        workAssignDTO.setEmail(workAssign.getEmail());
 		    	        workAssignDTO.setAssignedWork(workAssign.getAssignedWork());
 		    	        workAssignDTO.setStatus(workAssign.getStatus());
-		    	        workAssignDTO.setDeadline(workAssign.getDeadLine());
 		    	        // Map user ID from associated User entity
 		    	        if (workAssign.getUser() != null) {
 		    	            workAssignDTO.setUserId(workAssign.getUser().getUserid());

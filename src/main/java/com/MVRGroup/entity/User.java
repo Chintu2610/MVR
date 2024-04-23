@@ -31,14 +31,6 @@ public class User {
 	
 	@Column
 	private String assignedworkstatus;
-	
-	
-	 public String getAssignedworkstatus() {
-		return assignedworkstatus;
-	}
-	public void setAssignedworkstatus(String assignedworkstatus) {
-		this.assignedworkstatus = assignedworkstatus;
-	}
 
 	@Column(name = "paid250")
 	    private String paid250;
@@ -48,6 +40,13 @@ public class User {
 	}
 	public void setPaid250(String paid250) {
 		this.paid250 = paid250;
+	}
+
+	public String getAssignedworkstatus() {
+		return assignedworkstatus;
+	}
+	public void setAssignedworkstatus(String assignedworkstatus) {
+		this.assignedworkstatus = assignedworkstatus;
 	}
 
 	@Column(name = "approvestatus")
