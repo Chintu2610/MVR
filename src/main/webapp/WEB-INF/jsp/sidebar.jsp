@@ -45,7 +45,7 @@
             <li class="list-group-item"><a href="SendMoney">Papad</a></li>            
         </ul> -->
         
-        <li class="list-group-item"><a href="dashboard">Payments</a></li>
+        <li class="list-group-item"><a href="payment">Payments</a></li>
         
         <li class="list-group-item"><a href="rawmaterial">Raw Materials</a></li>
 

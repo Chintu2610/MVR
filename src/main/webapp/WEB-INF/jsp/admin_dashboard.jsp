@@ -111,7 +111,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                                     <div class="dash-widget-info">
                                     
                                        <%--  <% int totalWithdrawals = WithdrawalDAO.totalCount(); %> --%>
-                                        <h4><a href="withdrawal_user.jsp" style="text-decoration: none; color: inherit;">  <%-- <%= totalWithdrawals %> --%>
+                                        <h4><a href="payment" style="text-decoration: none; color: inherit;">  <%-- <%= totalWithdrawals %> --%>
                                       <br><span> Payments</span>
                                          </a></h4>
                                     </div>

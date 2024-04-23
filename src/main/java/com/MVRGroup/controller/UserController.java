@@ -1,5 +1,6 @@
 package com.MVRGroup.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,5 +138,20 @@ public class UserController {
 	        }
 	    }
 		
-	 
+	    @GetMapping("/userDropdown")
+	    public ResponseEntity<List<String>> getUserDropdown() {
+	        try {
+	            List<User> users = userservice.getAllUsers(); // Assuming you have a method to get all users
+	            List<String> userIdAndNames = new ArrayList<>();
+	            for (User user : users) {
+	                String userIdAndName = user.getUserid() + " - " + user.getName();
+	                userIdAndNames.add(userIdAndName);
+	            }
+	            return ResponseEntity.ok(userIdAndNames);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	        }
+	    }
+
 }

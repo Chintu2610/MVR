@@ -6,6 +6,7 @@ import com.MVRGroup.Service.TrainingService;
 import com.MVRGroup.entity.TrainingEntity;
 import com.MVRGroup.entity.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -92,6 +93,20 @@ public class TrainingController {
         }
     }
 	
-	
+    @GetMapping("/trainingDropdown")
+    public ResponseEntity<List<String>> gettrainingDropdown() {
+        try {
+            List<TrainingEntity> users = trainingService.getAllTraining(); // Assuming you have a method to get all users
+            List<String> userIdAndNames = new ArrayList<>();
+            for (TrainingEntity user : users) {
+                String userIdAndName = user.getTrainingid() + " - " + user.getTrainingname();
+                userIdAndNames.add(userIdAndName);
+            }
+            return ResponseEntity.ok(userIdAndNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 	
 }

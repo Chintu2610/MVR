@@ -29,7 +29,18 @@ public class User {
 	@Column
 	private String address;
 	
-	 @Column(name = "paid250")
+	@Column
+	private String assignedworkstatus;
+	
+	
+	 public String getAssignedworkstatus() {
+		return assignedworkstatus;
+	}
+	public void setAssignedworkstatus(String assignedworkstatus) {
+		this.assignedworkstatus = assignedworkstatus;
+	}
+
+	@Column(name = "paid250")
 	    private String paid250;
 	 
 	 public String getPaid250() {
