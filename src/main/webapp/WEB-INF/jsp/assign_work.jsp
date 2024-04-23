@@ -53,7 +53,6 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
             border-radius: 4px;
             cursor: pointer;
         }
-
         .submit-btn:hover {
             background-color: #0056b3;
         }
@@ -88,11 +87,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                         </div>
                     </div>
                 </div>
-
-
 <form action = "/assign_work" method="post">
-
- 
 					<div class="form-group row">
                             <label for="email" class="col-sm-2 col-form-label">Email<span class="text-danger">*</span></label>
                             <div class="col-sm-8">
@@ -172,10 +167,19 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
 
 <div class="form-group row">
     <label for="rawmaterials" class="col-sm-2 col-form-label">Available RawMaterials<span class="text-danger">*</span></label>
-    <div class="col-sm-8">
-        <select id="rawmaterials" name="rawmaterials" class="form-control" multiple>
-            <!-- Options will be populated dynamically -->
-        </select>
+    <div class="col-sm-10">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Raw Material</th>
+                       <th>Available Quantity</th>
+                    <th>Quantity to Assign</th>
+                </tr>
+            </thead>
+            <tbody id="rawMaterialTable">
+                <!-- Raw materials and quantity input fields will be populated dynamically here -->
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -196,24 +200,16 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
             url: 'rawmaterialDetails',
             dataType: 'json',
             success: function (data) {
-                // Clear the dropdown and quantity inputs before populating with new data
-                $('#rawmaterials').empty();
-                $('#quantityInputs').empty();
+                // Clear the table body before populating with new data
+                $('#rawMaterialTable').empty();
 
-                // Iterate over each raw material and append a new option to the dropdown
+                // Iterate over each raw material and append a new row to the table
                 $.each(data, function (index, material) {
-                    $('#rawmaterials').append($('<option>', {
-                        value: material.name,
-                        text: material.name
-                    }));
-
-                    // Create an input field for quantity corresponding to each raw material
-                    $('#quantityInputs').append('<div class="form-group row">' +
-                        '<label for="' + material.name + '" class="col-sm-2 col-form-label">' + material.name + ' Quantity</label>' +
-                        '<div class="col-sm-8">' +
-                        '<input type="number" id="' + material.name + '" name="' + material.name + '_quantity" class="form-control" placeholder="Enter quantity">' +
-                        '</div>' +
-                        '</div>');
+                    $('#rawMaterialTable').append('<tr>' +
+                        '<td>' + material.name + '</td>' +
+                        '<td>' + material.quantityAvailable + '</td>' +
+                        '<td><input type="number" class="form-control quantity-input" id="' + material.name + '_quantity" name="' + material.name + '_quantity" placeholder="Enter quantity"></td>' +
+                        '</tr>');
                 });
             },
             error: function (error) {
@@ -221,7 +217,20 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
             }
         });
     }
+
+    // Attach event listener to input fields for quantity
+    $(document).on('input', '.quantity-input', function () {
+        var assignedQuantity = parseInt($(this).val());
+        var availableQuantity = parseInt($(this).closest('tr').find('td:eq(1)').text());
+
+        if (assignedQuantity > availableQuantity) {
+            alert('Assigned quantity cannot exceed available quantity.');
+            // Reset the input field to the available quantity
+            $(this).val(availableQuantity);
+        }
+    });
 </script>
+
 <div class="form-group row">
                             <label for="assigned_work" class="col-sm-2 col-form-label">DeadLine<span class="text-danger">*</span></label>
                             <div class="col-sm-8">
@@ -252,8 +261,9 @@ function showAssignedWorks() {
             // Iterate over each assigned work and append a new row to the table
             $.each(data, function (index, assignedWork) {
                 var row = '<tr>' +
+                	'<td>' + assignedWork.email + '</td>' +
                     '<td>' + assignedWork.assignedWork + '</td>' +
-                    '<td>' + assignedWork.email + '</td>' +
+                    
                     '<td>' + assignedWork.status + '</td>' +
                     '<td>' + assignedWork.deadline + '</td>' +
                     '</tr>';
@@ -274,8 +284,9 @@ function showAssignedWorks() {
     <table class="table table-striped">
         <thead>
             <tr>
+            	<th>Email</th>
                 <th>Assigned Work</th>
-                <th>Email</th>
+                
                 <th>Status</th>
                 <th>Deadline</th>
             </tr>

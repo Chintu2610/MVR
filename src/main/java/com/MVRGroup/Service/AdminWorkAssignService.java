@@ -27,6 +27,8 @@ public class AdminWorkAssignService {
 	WorksRepo worksrepo;
 	@Autowired
 	AssignedRawmaterialRepo assignrawmaterialrepo;
+	@Autowired
+	RawmaterialRepository rawMaterialRepo;
 	public void AssignWork(String email,String work, Map<String, Integer> rawMaterials, String deadLine)
 	{
 		String status="placed";
@@ -42,11 +44,29 @@ public class AdminWorkAssignService {
 		 
 	        // Store raw material details along with the retrieved workid
 	        for (Map.Entry<String, Integer> entry : rawMaterials.entrySet()) {
-	            AssignedRawMaterial rawMaterial = new AssignedRawMaterial();
-	            rawMaterial.setName(entry.getKey());
-	            rawMaterial.setQuantity(entry.getValue());
-	            rawMaterial.setWorkId(workId);
-	            assignrawmaterialrepo.save(rawMaterial);
+	        	
+	        	String rawMaterialName = entry.getKey();
+	            int assignedQuantity = entry.getValue();
+
+	            // Retrieve the raw material entity from the repository
+	            RawmaterialEntity rawMaterial = rawMaterialRepo.findByName(rawMaterialName);
+	            
+	            if (rawMaterial != null) {
+	                // Check if the available quantity is sufficient
+	                int availableQuantity = rawMaterial.getQuantityAvailable();
+	                
+
+	                // Update the available quantity
+	                rawMaterial.setQuantityAvailable(availableQuantity - assignedQuantity);
+
+	                // Save the updated raw material entity
+	                rawMaterialRepo.save(rawMaterial);
+	            }
+	            AssignedRawMaterial rawMaterial1 = new AssignedRawMaterial();
+	            rawMaterial1.setName(entry.getKey());
+	            rawMaterial1.setQuantity(entry.getValue());
+	            rawMaterial1.setWorkId(workId);
+	            assignrawmaterialrepo.save(rawMaterial1);
 	        }
 	}
 	public List<Works> getAvailableWorks() {
