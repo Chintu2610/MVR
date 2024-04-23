@@ -59,7 +59,7 @@ public class Userservice {
 	
 	public List<User> getAllUsers()
 	{
-			List<User> users= repository.findAll();					
+			List<User> users= repository.findAllUsers();					
 			
 	        return users;		
 	}

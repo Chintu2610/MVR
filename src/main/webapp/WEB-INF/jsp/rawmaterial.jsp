@@ -196,7 +196,7 @@ if (newRecordsPerPageParam != null) {
                     <div class="col-sm-12">
                         <!-- Display welcome message -->
                         <div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
-                            Welcome <%= username %>!
+                            Welcome <%= name %>!
                         </div>
                               <div class="col">
 								<h3 class="page-title">Raw Materials</h3>

@@ -72,11 +72,6 @@ public class UserController {
 
 	    return "redirect:/user";
 	}
-	
-	
-	
-	
-	
 	 @PostMapping("/approveUser")
 	    public String approveUser(@RequestParam("userId") Integer userId) {
 	        try {

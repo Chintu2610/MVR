@@ -43,11 +43,9 @@ public class LoginController {
 			User user= userservice.ValidateUser(request.getParameter("email"), request.getParameter("password"));
 			if(user!=null) {
 				HttpSession session = request.getSession();
-	            
 	            // Store user information in the session
 	            session.setAttribute("name", user.getName());
 	            session.setAttribute("email", user.getEmail());
-
 	            model.addAttribute("message", user);
 				return "admin_dashboard";
 
