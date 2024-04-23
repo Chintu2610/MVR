@@ -108,19 +108,78 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
             
               
                 
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-form-label">user id <span class="text-danger">*</span></label>
                         <input name="userid" required class="form-control" type="text" ">
                     </div>
-                </div>
-                
+                </div> -->
                 <div class="col-md-12">
+    <div class="form-group">
+        <label class="col-form-label">User <span class="text-danger">*</span></label>
+        <select name="userid" required class="form-control">
+            <option value="">Select User</option>
+            <!-- Retrieve user IDs and names from the server-side endpoint -->
+            <!-- Use AJAX or similar technique to fetch the data dynamically -->
+            <!-- Example: -->
+            <script>
+                // Make an AJAX request to fetch user IDs and names
+                fetch('/userDropdown')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Populate the dropdown with retrieved user IDs and names
+                        data.forEach(userIdAndName => {
+                            const [userId, userName] = userIdAndName.split('-').map(str => str.trim());
+                            const option = document.createElement('option');
+                            option.value = userId;
+                            option.textContent = userName;
+                            document.querySelector('select[name="userid"]').appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching user dropdown:', error));
+            </script>
+        </select>
+    </div>
+</div>
+                
+                
+            <!--     <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-form-label">trainingid <span class="text-danger">*</span></label>
                         <input name="trainingid" required class="form-control" type="text">
                     </div>
-                </div>
+                </div> -->
+                <div class="col-md-12">
+    <div class="form-group">
+        <label class="col-form-label">Training ID <span class="text-danger">*</span></label>
+        <select name="trainingid" required class="form-control">
+            <option value="">Select TrainingID</option>
+            <!-- Retrieve user IDs and names from the server-side endpoint -->
+            <!-- Use AJAX or similar technique to fetch the data dynamically -->
+            <!-- Example: -->
+            <script>
+                // Make an AJAX request to fetch user IDs and names
+                fetch('/trainingDropdown')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Populate the dropdown with retrieved user IDs and names
+                        data.forEach(userIdAndName => {
+                            const [trainingid, trainingname] = userIdAndName.split('-').map(str => str.trim());
+                            const option = document.createElement('option');
+                            option.value = trainingid;
+                            option.textContent = trainingname;
+                            document.querySelector('select[name="trainingid"]').appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching user dropdown:', error));
+            </script>
+        </select>
+    </div>
+</div>
+                
+                
+                
+                
                 
                   <div class="col-md-12">
                     <div class="form-group">
