@@ -71,9 +71,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
 <body>
 <div class="main-wrapper">
    
-    <jsp:include page="header.jsp" />
 
- <jsp:include page="sidebar.jsp" /> 
 
     <!-- Page Wrapper -->
     <div class="page-wrapper">

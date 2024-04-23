@@ -1,5 +1,7 @@
 package com.MVRGroup.dto;
 
+import java.sql.Date;
+
 import com.MVRGroup.entity.WorkAssign;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +18,7 @@ public class WorkAssignDTO {
     private int userId;
     private String Name;
     private String status;// Add more user properties as needed
-
+    private Date deadline;
     public WorkAssignDTO(WorkAssign workAssign) {
         this.id = workAssign.getWorkid();
         this.email = workAssign.getEmail();
@@ -24,5 +26,6 @@ public class WorkAssignDTO {
         this.userId = workAssign.getUser().getUserid();// Assuming User has an id field
         this.Name = workAssign.getUser().getName() ;
         this.status=workAssign.getStatus();// Assuming User has a firstName field
+        this.deadline=workAssign.getDeadLine();
     }
 }

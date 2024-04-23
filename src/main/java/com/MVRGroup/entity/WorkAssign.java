@@ -1,4 +1,6 @@
 package com.MVRGroup.entity;
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,5 +31,7 @@ public class WorkAssign {
     private User user;
     @Column
 	 private String status;
+    @Column
+    private Date deadLine;
    
 }
