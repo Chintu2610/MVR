@@ -37,6 +37,7 @@ public class LoginController {
 	{
 		return "login";
 	}
+	
 	 @PostMapping("/login")
 	    public String validateUser(HttpServletRequest request,Model model)
 		{
@@ -61,6 +62,28 @@ public class LoginController {
 	    }
 
 	 
+	 
+	 
+	 @PostMapping("/loginflutter")
+	 public String validateUser1(HttpServletRequest request, Model model) {
+	     User user = userservice.ValidateUser(request.getParameter("email"), request.getParameter("password"));
+	     if (user != null) {
+	         if (user.getRoleid() == 2) {
+	             HttpSession session = request.getSession();
+	             // Store user information in the session
+	             session.setAttribute("name", user.getName());
+	             session.setAttribute("email", user.getEmail());
+	             model.addAttribute("message", user);
+	             return "admin_dashboard";
+	         } else {
+	             // Redirect user to a different page for users with role ID other than 2
+	             return "redirect:/access-denied";
+	         }
+	     } else {
+	         return "login";
+	     }
+	 }
+
 }
 
 

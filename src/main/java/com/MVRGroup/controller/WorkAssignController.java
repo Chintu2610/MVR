@@ -104,6 +104,8 @@ public class WorkAssignController {
 		 	adminservice.AddWork(work);
 			return ResponseEntity.ok("Work assigned successfully");
 		}
+	 
+	 
 	 @PostMapping("/updateWork")
 	    public String updateWork(@RequestParam String workname,@RequestParam int workid)
 		{
@@ -121,4 +123,38 @@ public class WorkAssignController {
 		{
 			return "works";
 		}
+	 
+	
+	 
+	 
+	 
+	 @GetMapping("/getAllAssignedWorksbyUserID")
+	 public ResponseEntity<List<WorkAssignDTO>> getAllAssignedWorks(@RequestParam int userid) {
+	     List<WorkAssign> assignedWorks = adminservice.getAllAssignedWorksByUserId(userid);
+	     List<WorkAssignDTO> assignedWorksDTO = assignedWorks.stream()
+	         .map(workAssign -> {
+	             WorkAssignDTO workAssignDTO = new WorkAssignDTO();
+	             // Map common properties
+	             workAssignDTO.setId(workAssign.getWorkid());
+	             workAssignDTO.setEmail(workAssign.getEmail());
+	             workAssignDTO.setAssignedWork(workAssign.getAssignedWork());
+	             workAssignDTO.setStatus(workAssign.getStatus());
+	             // Map user ID from associated User entity
+	             if (workAssign.getUser() != null) {
+	                 workAssignDTO.setUserId(workAssign.getUser().getUserid());
+	             }
+	             return workAssignDTO;
+	         })
+	         .collect(Collectors.toList());
+
+	     return ResponseEntity.ok(assignedWorksDTO);
+	 }
+
+	 
+	 
+	 
+	 
+	 
+	 
+
 }

@@ -8,6 +8,7 @@ import org.hibernate.boot.registry.classloading.spi.ClassLoaderService.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.MVRGroup.entity.AssignedRawMaterial;
@@ -37,6 +38,9 @@ public class AdminWorkAssignService {
 	        workAssign.setAssignedWork(work);
 	        workAssign.setStatus(status);
 		workAssignRepo.assignWork(email,work,email,status, deadLine);
+		
+		 workAssignRepo.updateAssignedWorkStatus(email);
+		
 		Long workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work); 
 		/*
 		 * Long workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work);
@@ -108,4 +112,11 @@ public class AdminWorkAssignService {
 		return  workAssignRepo.findAll();
 		
 	}
+	
+	
+	 public List<WorkAssign> getAllAssignedWorksByUserId(int userid) {
+	        return workAssignRepo.findAllByUserId(userid);
+	    }
+	
+	
 }

@@ -60,6 +60,7 @@
     	 <li class="list-group-item"><a href="users">User Details </a></li>
     	 
     	 	 <li class="list-group-item"><a href="users_available">User Available </a></li>
+    	     	 	 <li class="list-group-item"><a href="trainingschedule">Training schedule</a></li>
     	 
 
     </ul>
