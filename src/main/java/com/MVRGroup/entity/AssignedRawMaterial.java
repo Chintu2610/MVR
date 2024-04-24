@@ -34,6 +34,6 @@ public class AssignedRawMaterial {
 		 * WorkAssign workAssign;
 		 */
 	    @Column(name = "workid")
-	    private Long workId;
+	    private int workId;
 
 }
