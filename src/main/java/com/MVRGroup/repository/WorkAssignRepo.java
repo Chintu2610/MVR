@@ -41,7 +41,7 @@ public interface WorkAssignRepo extends JpaRepository<WorkAssign,Integer>{
     		+ "WHERE status=\"delivered\" " 
             , nativeQuery = true)
 	List<WorkAssign> getDeliveredProductsData();
-    Long findWorkidByEmailAndAssignedWork(String email, String assignedWork);
+    
     @Query(value = "select * from assigned_user_work where userid=?1",nativeQuery = true)
     List<WorkAssign> findAllByUserId(int userid);
 }
