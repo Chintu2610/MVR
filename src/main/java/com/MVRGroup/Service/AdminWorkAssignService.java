@@ -1,5 +1,6 @@
 package com.MVRGroup.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.MVRGroup.dto.WorkAssignDTO;
 import com.MVRGroup.entity.AssignedRawMaterial;
 import com.MVRGroup.entity.RawmaterialEntity;
 import com.MVRGroup.entity.WorkAssign;
@@ -38,13 +40,13 @@ public class AdminWorkAssignService {
 	        workAssign.setAssignedWork(work);
 	        workAssign.setStatus(status);
 		workAssignRepo.assignWork(email,work,email,status, deadLine);
+
+		int workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work); 
+
 		
 		 workAssignRepo.updateAssignedWorkStatus(email);
 		
-		Long workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work); 
-		/*
-		 * Long workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work);
-		 */
+	
 		 
 	        // Store raw material details along with the retrieved workid
 	        for (Map.Entry<String, Integer> entry : rawMaterials.entrySet()) {
@@ -112,11 +114,62 @@ public class AdminWorkAssignService {
 		return  workAssignRepo.findAll();
 		
 	}
+
+	public List<WorkAssignDTO> getWithin2DaysData() {
+		// TODO Auto-generated method stub
+		List<WorkAssign> works= workAssignRepo.getWithin2DaysData();
+		List<WorkAssignDTO> dto=new ArrayList<>();
+		for(WorkAssign wo:works)
+		{
+			WorkAssignDTO dt=new WorkAssignDTO();			
+			dt.setAssignedWork(wo.getAssignedWork());
+			dt.setDeadline(wo.getDeadLine());
+			dt.setEmail(wo.getEmail());
+			dt.setName(wo.getUser().getName());
+			dt.setStatus(wo.getStatus());
+			dt.setUserId(wo.getUser().getUserid());
+			dto.add(dt);
+		}
+		return dto;
+	}
+	public List<WorkAssignDTO> getDeliveryDatePassedData() {
+		// TODO Auto-generated method stub
+		List<WorkAssign> works= workAssignRepo.getDeliveryDatePassedData();
+		List<WorkAssignDTO> dto=new ArrayList<>();
+		for(WorkAssign wo:works)
+		{
+			WorkAssignDTO dt=new WorkAssignDTO();			
+			dt.setAssignedWork(wo.getAssignedWork());
+			dt.setDeadline(wo.getDeadLine());
+			dt.setEmail(wo.getEmail());
+			dt.setName(wo.getUser().getName());
+			dt.setStatus(wo.getStatus());
+			dt.setUserId(wo.getUser().getUserid());
+			dto.add(dt);
+		}
+		return dto;
+	}
+	public List<WorkAssignDTO> getDeliveredProductsData() {
+		// TODO Auto-generated method stub
+		List<WorkAssign> works= workAssignRepo.getDeliveredProductsData();
+		List<WorkAssignDTO> dto=new ArrayList<>();
+		for(WorkAssign wo:works)
+		{
+			WorkAssignDTO dt=new WorkAssignDTO();			
+			dt.setAssignedWork(wo.getAssignedWork());
+			dt.setDeadline(wo.getDeadLine());
+			dt.setEmail(wo.getEmail());
+			dt.setName(wo.getUser().getName());
+			dt.setStatus(wo.getStatus());
+			dt.setUserId(wo.getUser().getUserid());
+			dto.add(dt);
+		}
+		return dto;
+	}
+
 	
 	
 	 public List<WorkAssign> getAllAssignedWorksByUserId(int userid) {
 	        return workAssignRepo.findAllByUserId(userid);
 	    }
-	
-	
 }

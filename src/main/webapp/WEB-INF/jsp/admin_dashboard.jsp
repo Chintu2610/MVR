@@ -73,9 +73,6 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                             <div class="card-body">
                                     <span class="dash-widget-icon"><i class="fa fa-users"></i></span>
                                     <div class="dash-widget-info">
-                                  
-                                      <%--   <% int customerCount = CustomerDAO.totalCount(); %> --%>
-                                       
                                         <h4><a href="service" style="text-decoration: none; color: inherit;">  
                                         <br><span>Services</span>
                                         </a></h4>
@@ -145,8 +142,8 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                                     <span class="dash-widget-icon"><i class="fa fa-bell"></i></span>
                                     <div class="dash-widget-info">
                                       
-                                      <%--   <%int ReferralBonus = ReffertalDAO.totalCount();%>   --%>
-                                        <h4><a href="bonus.jsp" style="text-decoration: none; color: inherit;"> <%--  <%=ReferralBonus %> --%>
+                                     
+                                        <h4><a href="notification" style="text-decoration: none; color: inherit;"> <%--  <%=ReferralBonus %> --%>
                                      <br><span> Notifications</span>
                                         </a></h4>
                                     </div>
