@@ -51,7 +51,7 @@ public class UserController {
 	        approvestatus = "not approved";
 	        paid250="pending";
 	    }
-	    String assignedworkstatus = "Not Available";
+	    String assignedworkstatus = "Available";
 		User entityy = new User();
 	    entityy.setName(name);
 	    entityy.setAddress(address);
