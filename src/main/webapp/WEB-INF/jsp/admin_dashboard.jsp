@@ -126,7 +126,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                                     <div class="dash-widget-info">
                                       
                                    <%--      <%int referralCount = ReffertalDAO.ReferaltotalCount();%> --%>
-                                        <h4><a href="referrals_user.jsp" style="text-decoration: none; color: inherit;"> <%-- <%= referralCount %> --%>
+                                        <h4><a href="job" style="text-decoration: none; color: inherit;"> <%-- <%= referralCount %> --%>
                                         <br><span>Jobs </span>
                                           </a></h4>
                                     </div>

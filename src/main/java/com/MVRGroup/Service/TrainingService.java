@@ -3,6 +3,7 @@
 package com.MVRGroup.Service;
 
 import com.MVRGroup.entity.TrainingEntity;
+import com.MVRGroup.entity.User;
 import com.MVRGroup.repository.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,5 +67,8 @@ public class TrainingService {
 	}	
 	
 	
-	
+
+	 public TrainingEntity getTrainerById(Integer trainingid) {
+	        return repository.findById(trainingid).orElse(null);
+	    }
 }

@@ -60,7 +60,7 @@ if (newRecordsPerPageParam != null) {
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     
-    <title>Training Assignee</title>
+    <title>Services</title>
 <script>
         var recordsPerPage = <%= newRecordsPerPage %>; // Use Java variable in JavaScript
         var currentPage = <%= currentPage %>;
@@ -74,64 +74,84 @@ if (newRecordsPerPageParam != null) {
             window.location.href = newUrl;
         }
         
+        function editRawMaterial(jobid,job,qty,userid,startDate,endDate) {
+        //	var formattedstart_date = moment(start_date).format('YYYY-MM-DD');
+         //   var formattedend_date = moment(end_date).format('YYYY-MM-DD');
+        	// Set the work ID and name in the edit modal
+             $('#editjobid').val(jobid);
+            $('#editjob').val(job);
+            $('#editqty').val(qty);
+            $('#edituserid').val(userid);
+            $('#editstart_date').val(startDate);
+            $('#editend_date').val(endDate);
+        
+            
+            // Show the edit modal
+            $('#editModal').modal('show');
+        }
+
+        function deleteRawMaterial(ID) {
+        	debugger;
+            // Perform the delete operation using AJAX
+            $.ajax({
+                type: 'POST',
+                url: '/jobdelete',
+                data: { jobid: ID },
+                success: function(response) {
+                	
+                    // Handle success response
+                	 alert(" Deleted Successfully");
+                	 window.location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    alert('Error: ' + error);
+                }
+            });
+        }
+        
         $(document).ready(function () {
             showAllUserDetails();
         });
 
         function showAllUserDetails() {
-            // AJAX request to fetch user details
+            // Make an AJAX request to the server-side endpoint to fetch all user details
             $.ajax({
                 type: 'GET',
-                url: 'TrainingAssigneeDetails',
+                url: 'JobDetails',
                 dataType: 'json',
                 success: function (data) {
+                    // Clear the table body before populating with new data
                     $('#userTable tbody').empty();
-
+                    // Iterate over each user data and append a new row to the table
                     $.each(data, function (index, user) {
-                        // AJAX request to fetch username
+                        // Make an AJAX request to fetch the username based on the user ID
                         $.ajax({
                             type: 'GET',
                             url: '/getUsername',
                             data: { userId: user.userid },
                             success: function (username) {
-                                // AJAX request to fetch training name
-                                $.ajax({
-                                    type: 'GET',
-                                    url: '/getTrainername',
-                                    data: { trainingid: user.trainingid },
-                                    success: function (trainingname) {
-                                        // Construct the row once both AJAX calls have completed
-                                        var row = '<tr>' +
-                                            '<td style="width: 100px;">' + username + '</td>' +
-                                            '<td style="width: 100px;">' + trainingname + '</td>' +
-                                            '<td style="width: 200px;">' + user.trainingassignestatus + '</td>';
-
-                                        if (user.trainingassignestatus === "completed") {
-                                            row += '<td style="width: 200px;"><button class="btn btn-success" disabled>Complete</button></td>';
-                                        } else {
-                                            row += '<td style="width: 200px;"><button onclick="approveUser(' + user.trainingassigneid + ')" class="btn btn-success">Complete</button></td>';
-                                        }
-
-                                        row += '<td style="width:200px;">' +
-                                            '<button class="btn btn-primary btn-sm editBtn">Edit</button>&nbsp;&nbsp;' +
-                                            '<button class="btn btn-danger btn-sm deleteBtn">Delete</button>' +
-                                            '</td>' +
-                                            '</tr>';
-
-                                        var $row = $(row);
-                                        $row.find('.editBtn').click(function () {
-                                            editRawMaterial(user.trainingassigneid, user.userid, user.trainingassignestatus, user.trainingid);
-                                        });
-                                        $row.find('.deleteBtn').click(function () {
-                                            deleteRawMaterial(user.trainingassigneid);
-                                        });
-
-                                        $('#userTable tbody').append($row);
-                                    },
-                                    error: function (error) {
-                                        console.error('Error fetching training name:', error);
-                                    }
+                                var row = '<tr>' +
+                                    '<td style="width: 100px;">' + user.jobid + '</td>' +
+                                    '<td style="width: 150px;">' + user.job + '</td>' +
+                                    '<td style="width: 150px;">' + user.qty + '</td>' +
+                                    '<td style="width: 150px;">' + username + '</td>' +
+                                    '<td style="width: 150px;">' + user.startDate + '</td>' +
+                                    '<td style="width: 150px;">' + user.endDate + '</td>' +
+                                    '<td style="width:200px;">' +
+                                    '<button class="btn btn-primary btn-sm editBtn">Edit</button>&nbsp;&nbsp;' +
+                                    '<button class="btn btn-danger btn-sm deleteBtn">Delete</button>' +
+                                    '</td>' +
+                                    '</tr>';
+                                var $row = $(row);
+                                // Attach event listeners to the edit and delete buttons in this row
+                                $row.find('.editBtn').click(function () {
+                                    editRawMaterial(user.jobid, user.job, user.qty, user.userid, user.startDate, user.endDate);
                                 });
+                                $row.find('.deleteBtn').click(function () {
+                                    deleteRawMaterial(user.jobid);
+                                });
+                                $('#userTable tbody').append($row);
                             },
                             error: function (error) {
                                 console.error('Error fetching username:', error);
@@ -145,53 +165,6 @@ if (newRecordsPerPageParam != null) {
             });
         }
 
-
-        function approveUser(trainingassigneid) {
-            // AJAX request to approve user
-            $.ajax({
-                type: 'POST',
-                url: '/completedStatus',
-                data: { trainingassigneid: trainingassigneid },
-                success: function (response) {
-                    showAllUserDetails(); // Refresh the table
-                },
-                error: function (error) {
-                    console.error('Error approving user:', error);
-                }
-            });
-        }
-
-        function editRawMaterial(trainingassigneid, userid, trainingassignestatus, trainingid) {
-            // Edit functionality
-            $('#edittrainingassigneid').val(trainingassigneid);
-                    $('#edituserid').val(userid);
-                    $('#edittrainingassignestatus').val(trainingassignestatus);
-                    $('#edittrainingid').val(trainingid);
-                   
-                    
-                    // Show the edit modal
-                    $('#editModal').modal('show');
-        }
-
-        function deleteRawMaterial(ID) {
-            // Delete functionality
-         $.ajax({
-                        type: 'POST',
-                        url: '/trainingassigneedelete',
-                        data: { trainingassigneid: ID },
-                        success: function(response) {
-                            // Handle success response
-                        	// alert("RawMaterial Deleted Successfully");
-                        	 window.location.reload();
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle error response
-                            alert('Error: ' + error);
-                        }
-                    });
-                
-        }
-  
     </script>
 
 
@@ -214,10 +187,10 @@ if (newRecordsPerPageParam != null) {
                             Welcome <%= username %>!
                         </div>
                               <div class="col">
-								<h3 class="page-title">Training Assignee</h3>
+								<h3 class="page-title">Jobs</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="admin_dashboard">Dashboard</a></li>
-									<li class="breadcrumb-item active">users</li>
+									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
+									<li class="breadcrumb-item active">Jobs</li>
 								</ul>
 							</div>
 							<div class="col-auto float-right ml-auto">
@@ -232,23 +205,26 @@ if (newRecordsPerPageParam != null) {
       <div class="col-auto float-right ml-auto">
 
 			         </div>
-	        <table id="userTable" class="table-striped custom-table mb-0 datatable" style="width: 800px;">
+			         <div style="height: 400px; overflow: auto;">
+	        <table id="userTable" class="table-striped custom-table mb-0 datatable" style="width: 900px;">
                         <thead>
                             <tr>
 
-
-                          <!--   <th>ID</th> -->
-                            <th style="width: 100px;">UserID</th>
-					        <th style="width: 100px;">Training ID</th>
-					        <th style="width: 200px;">Status</th>
-					        <th style="width: 200px;" >Completed/Not</th>
-					        <th  style="width: 200px; ">Action</th>
+                            <th style="width: 100px;">ID</th>
+					         <th style="width: 150px;">Job</th>
+					         <th style="width: 150px;">Quantity</th>
+					         <th style="width: 150px;">User Name</th>
+					         <th style="width: 150px;">Start Date</th>
+					         <th style="width: 150px;">Dead Line</th>
+					       
+                              <th style="width: 200px; text-align:center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- User data will be populated here -->
                         </tbody>
                     </table>
+                     </div>
        </div>
        </div>
          
@@ -258,8 +234,8 @@ if (newRecordsPerPageParam != null) {
     
      
    </div>
-	<jsp:include page="trainingassigneeadd.jsp" />
-	<jsp:include page="trainingassignee_edit.jsp" /> 
+	<jsp:include page="job_add.jsp" />
+	<jsp:include page="job_edit.jsp" />
     <!-- Bootstrap Core JS -->
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

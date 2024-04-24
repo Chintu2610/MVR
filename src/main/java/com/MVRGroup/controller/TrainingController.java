@@ -109,4 +109,32 @@ public class TrainingController {
         }
     }
 	
+    
+    @GetMapping("/getTrainername")
+    public ResponseEntity<String> getTrainernameById(@RequestParam("trainingid") Integer trainingid) {
+        try {
+        	TrainingEntity user = trainingService.getTrainerById(trainingid);	            
+            if (user != null) {
+                return ResponseEntity.ok(user.getTrainingname());
+            } else {
+                // If the user does not exist, return an appropriate response
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

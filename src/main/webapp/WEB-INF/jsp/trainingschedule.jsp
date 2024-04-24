@@ -82,37 +82,28 @@ if (newRecordsPerPageParam != null) {
             // AJAX request to fetch user details
             $.ajax({
                 type: 'GET',
-                url: 'TrainingAssigneeDetails',
+                url: 'TrainingScheduleDetails',
                 dataType: 'json',
                 success: function (data) {
                     $('#userTable tbody').empty();
 
                     $.each(data, function (index, user) {
-                        // AJAX request to fetch username
-                        $.ajax({
-                            type: 'GET',
-                            url: '/getUsername',
-                            data: { userId: user.userid },
-                            success: function (username) {
-                                // AJAX request to fetch training name
+
                                 $.ajax({
                                     type: 'GET',
                                     url: '/getTrainername',
                                     data: { trainingid: user.trainingid },
                                     success: function (trainingname) {
-                                        // Construct the row once both AJAX calls have completed
                                         var row = '<tr>' +
-                                            '<td style="width: 100px;">' + username + '</td>' +
-                                            '<td style="width: 100px;">' + trainingname + '</td>' +
-                                            '<td style="width: 200px;">' + user.trainingassignestatus + '</td>';
+                                            '<td style="width: 100px;">' + user.trainingscheduleid + '</td>' +
+                                            '<td style="width: 150px;">' + trainingname + '</td>' +
+                                            '<td style="width: 150px;">' + user.startDate + '</td>' +
+                                            '<td style="width: 150px;">' + user.endDate + '</td>' +
+                                            '<td style="width: 250px;">' + user.timings + '</td>' +
+                                            '<td style="width: 150px;">' + user.description + '</td>';
 
-                                        if (user.trainingassignestatus === "completed") {
-                                            row += '<td style="width: 200px;"><button class="btn btn-success" disabled>Complete</button></td>';
-                                        } else {
-                                            row += '<td style="width: 200px;"><button onclick="approveUser(' + user.trainingassigneid + ')" class="btn btn-success">Complete</button></td>';
-                                        }
 
-                                        row += '<td style="width:200px;">' +
+                                        row += '<td style="width:250px;">' +
                                             '<button class="btn btn-primary btn-sm editBtn">Edit</button>&nbsp;&nbsp;' +
                                             '<button class="btn btn-danger btn-sm deleteBtn">Delete</button>' +
                                             '</td>' +
@@ -120,19 +111,15 @@ if (newRecordsPerPageParam != null) {
 
                                         var $row = $(row);
                                         $row.find('.editBtn').click(function () {
-                                            editRawMaterial(user.trainingassigneid, user.userid, user.trainingassignestatus, user.trainingid);
+                                            editRawMaterial(user.trainingscheduleid, user.trainingid, user.startDate, user.endDate, user.timings, user.description);
                                         });
                                         $row.find('.deleteBtn').click(function () {
-                                            deleteRawMaterial(user.trainingassigneid);
+                                            deleteRawMaterial(user.trainingscheduleid);
                                         });
 
                                         $('#userTable tbody').append($row);
                                     },
-                                    error: function (error) {
-                                        console.error('Error fetching training name:', error);
-                                    }
-                                });
-                            },
+                                   
                             error: function (error) {
                                 console.error('Error fetching username:', error);
                             }
@@ -146,28 +133,16 @@ if (newRecordsPerPageParam != null) {
         }
 
 
-        function approveUser(trainingassigneid) {
-            // AJAX request to approve user
-            $.ajax({
-                type: 'POST',
-                url: '/completedStatus',
-                data: { trainingassigneid: trainingassigneid },
-                success: function (response) {
-                    showAllUserDetails(); // Refresh the table
-                },
-                error: function (error) {
-                    console.error('Error approving user:', error);
-                }
-            });
-        }
+       
 
-        function editRawMaterial(trainingassigneid, userid, trainingassignestatus, trainingid) {
+        function editRawMaterial(trainingscheduleid,trainingid,startDate,endDate,timings,description) {
             // Edit functionality
-            $('#edittrainingassigneid').val(trainingassigneid);
-                    $('#edituserid').val(userid);
-                    $('#edittrainingassignestatus').val(trainingassignestatus);
+            $('#edittrainingscheduleid').val(trainingscheduleid);
                     $('#edittrainingid').val(trainingid);
-                   
+                    $('#editstartDate').val(startDate);
+                    $('#editendDate').val(endDate);
+                    $('#edittimings').val(timings);
+                    $('#editdescription').val(description);
                     
                     // Show the edit modal
                     $('#editModal').modal('show');
@@ -177,8 +152,8 @@ if (newRecordsPerPageParam != null) {
             // Delete functionality
          $.ajax({
                         type: 'POST',
-                        url: '/trainingassigneedelete',
-                        data: { trainingassigneid: ID },
+                        url: '/TrainingScheduledelete',
+                        data: { trainingscheduleid: ID },
                         success: function(response) {
                             // Handle success response
                         	// alert("RawMaterial Deleted Successfully");
@@ -214,10 +189,10 @@ if (newRecordsPerPageParam != null) {
                             Welcome <%= username %>!
                         </div>
                               <div class="col">
-								<h3 class="page-title">Training Assignee</h3>
+								<h3 class="page-title">Training Schedule</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="admin_dashboard">Dashboard</a></li>
-									<li class="breadcrumb-item active">users</li>
+									<li class="breadcrumb-item active">Training Schedule</li>
 								</ul>
 							</div>
 							<div class="col-auto float-right ml-auto">
@@ -238,11 +213,13 @@ if (newRecordsPerPageParam != null) {
 
 
                           <!--   <th>ID</th> -->
-                            <th style="width: 100px;">UserID</th>
-					        <th style="width: 100px;">Training ID</th>
-					        <th style="width: 200px;">Status</th>
-					        <th style="width: 200px;" >Completed/Not</th>
-					        <th  style="width: 200px; ">Action</th>
+                            <th style="width: 100px;">ID</th>
+					        <th style="width: 150px;">Training Name</th>
+					        <th style="width: 150px;">startDate</th>
+					        <th style="width: 150px;" >endDate</th>
+					         <th style="width: 250px;">timings</th>
+					        <th style="width: 150px;" >description</th>
+					        <th  style="width: 250px; ">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -258,8 +235,8 @@ if (newRecordsPerPageParam != null) {
     
      
    </div>
-	<jsp:include page="trainingassigneeadd.jsp" />
-	<jsp:include page="trainingassignee_edit.jsp" /> 
+	<jsp:include page="trainingschedule_add.jsp" />
+	<jsp:include page="trainingschedule_edit.jsp" /> 
     <!-- Bootstrap Core JS -->
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

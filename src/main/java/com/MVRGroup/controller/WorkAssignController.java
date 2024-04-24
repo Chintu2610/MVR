@@ -30,7 +30,7 @@ public class WorkAssignController {
 		return "assign_work";
 	}
 	 @PostMapping("/assign_work")
-	    public String assignWorkUser(@RequestParam String email,@RequestParam String work,@RequestParam Map<String, String> rawMaterials,@RequestParam String deadLine)
+	    public String assignWorkUser(@RequestParam String email,@RequestParam String work,@RequestParam Map<String, String> rawMaterials)
 		{
 		 Map<String, Integer> rawMaterials1 = new HashMap<>();
 
@@ -62,14 +62,19 @@ public class WorkAssignController {
 		            }
 		        }
 		    }
-	        adminservice.AssignWork(email,work,rawMaterials1,deadLine);
+	        adminservice.AssignWork(email,work,rawMaterials1, work);
 			return  "redirect:/assign_work";
 		}
+	 
+	 
 	 @GetMapping("/getAvailableWorks")
 	 public ResponseEntity<List<Works>> getAvailableWorks() {
 	        List<Works> availableWorks = adminservice.getAvailableWorks();
 	        return ResponseEntity.ok(availableWorks);
 	    }
+	 
+	 
+	 
 	 @GetMapping("/getAllAssignedWorks")
 
 	 public ResponseEntity<List<WorkAssignDTO>> getAllAssignedWorks() {
@@ -82,7 +87,6 @@ public class WorkAssignController {
 		    	        workAssignDTO.setEmail(workAssign.getEmail());
 		    	        workAssignDTO.setAssignedWork(workAssign.getAssignedWork());
 		    	        workAssignDTO.setStatus(workAssign.getStatus());
-		    	        workAssignDTO.setDeadline(workAssign.getDeadLine());
 		    	        // Map user ID from associated User entity
 		    	        if (workAssign.getUser() != null) {
 		    	            workAssignDTO.setUserId(workAssign.getUser().getUserid());
@@ -100,6 +104,8 @@ public class WorkAssignController {
 		 	adminservice.AddWork(work);
 			return ResponseEntity.ok("Work assigned successfully");
 		}
+	 
+	 
 	 @PostMapping("/updateWork")
 	    public String updateWork(@RequestParam String workname,@RequestParam int workid)
 		{
@@ -117,4 +123,38 @@ public class WorkAssignController {
 		{
 			return "works";
 		}
+	 
+	
+	 
+	 
+	 
+	 @GetMapping("/getAllAssignedWorksbyUserID")
+	 public ResponseEntity<List<WorkAssignDTO>> getAllAssignedWorks(@RequestParam int userid) {
+	     List<WorkAssign> assignedWorks = adminservice.getAllAssignedWorksByUserId(userid);
+	     List<WorkAssignDTO> assignedWorksDTO = assignedWorks.stream()
+	         .map(workAssign -> {
+	             WorkAssignDTO workAssignDTO = new WorkAssignDTO();
+	             // Map common properties
+	             workAssignDTO.setId(workAssign.getWorkid());
+	             workAssignDTO.setEmail(workAssign.getEmail());
+	             workAssignDTO.setAssignedWork(workAssign.getAssignedWork());
+	             workAssignDTO.setStatus(workAssign.getStatus());
+	             // Map user ID from associated User entity
+	             if (workAssign.getUser() != null) {
+	                 workAssignDTO.setUserId(workAssign.getUser().getUserid());
+	             }
+	             return workAssignDTO;
+	         })
+	         .collect(Collectors.toList());
+
+	     return ResponseEntity.ok(assignedWorksDTO);
+	 }
+
+	 
+	 
+	 
+	 
+	 
+	 
+
 }

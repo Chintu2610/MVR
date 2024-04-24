@@ -18,14 +18,23 @@ public class JobEntity {
     @Column(name = "jobid")
     private int jobid;
 
-    @Column(name = "assignedjob")
-    private String assignedjob;
+    @Column(name = "job")
+    private String job;
 
+
+    @Column(name = "qty")
+    private int qty;
+    
     @Column(name = "userid")
     private int userid;
 
     
+    @Column(name = "startDate")
+    private String startDate;
     
+    @Column(name = "endDate")
+    private String endDate;
+
 	public int getJobid() {
 		return jobid;
 	}
@@ -34,12 +43,20 @@ public class JobEntity {
 		this.jobid = jobid;
 	}
 
-	public String getAssignedjob() {
-		return assignedjob;
+	public String getJob() {
+		return job;
 	}
 
-	public void setAssignedjob(String assignedjob) {
-		this.assignedjob = assignedjob;
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public int getQty() {
+		return qty;
+	}
+
+	public void setQty(int qty) {
+		this.qty = qty;
 	}
 
 	public int getUserid() {
@@ -50,7 +67,21 @@ public class JobEntity {
 		this.userid = userid;
 	}
 
-   
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 	
 	
    

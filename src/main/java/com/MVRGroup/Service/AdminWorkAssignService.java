@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.classloading.spi.ClassLoaderService.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.MVRGroup.dto.WorkAssignDTO;
@@ -39,7 +40,13 @@ public class AdminWorkAssignService {
 	        workAssign.setAssignedWork(work);
 	        workAssign.setStatus(status);
 		workAssignRepo.assignWork(email,work,email,status, deadLine);
+
 		int workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work); 
+
+		
+		 workAssignRepo.updateAssignedWorkStatus(email);
+		
+	
 		 
 	        // Store raw material details along with the retrieved workid
 	        for (Map.Entry<String, Integer> entry : rawMaterials.entrySet()) {
@@ -107,6 +114,7 @@ public class AdminWorkAssignService {
 		return  workAssignRepo.findAll();
 		
 	}
+
 	public List<WorkAssignDTO> getWithin2DaysData() {
 		// TODO Auto-generated method stub
 		List<WorkAssign> works= workAssignRepo.getWithin2DaysData();
@@ -158,4 +166,10 @@ public class AdminWorkAssignService {
 		}
 		return dto;
 	}
+
+	
+	
+	 public List<WorkAssign> getAllAssignedWorksByUserId(int userid) {
+	        return workAssignRepo.findAllByUserId(userid);
+	    }
 }
