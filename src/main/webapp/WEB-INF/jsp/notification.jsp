@@ -72,35 +72,38 @@ if (newRecordsPerPageParam != null) {
             <!-- Page Header -->
             <div class="page-header">
                 <div class="row align-items-center">
-                    <div class="col-sm-12">
-                        <!-- Display welcome message -->
-                        <div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
-                            Welcome <%= username %>!
-                        </div>
-                              <div class="col">
-								<h3 class="page-title">Users</h3>
-								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
-									<li class="breadcrumb-item active">users</li>
-								</ul>
-							</div>
-                    </div>
-                </div>
+    <div class="col-sm-12">
+        <!-- Display welcome message -->
+        <div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
+            Welcome <%= name %>!
+        </div>
+        <div class="col">
+            <h3 class="page-title">Users</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
+                <li class="breadcrumb-item active">notifications</li>
+            </ul>
+            <div class="col-sm-4 text-right"> <!-- Adjust column size as needed -->
+        <a href="assign_work" class="btn btn-primary">View All Assigned Works</a>
+    </div>
+        </div>
+    </div>
+</div>
+
             </div>
              <!-- Main Headings with Toggleable Content -->
-     
-	        <button id="fetchWithin2DaysBtn">Within 2 Days</button>
-    <button id="fetchDeliveryDatePassedBtn">Delivery Date Passed</button>
-    <button id="fetchDeliveredProductsBtn">Delivered Products</button>
-    
+     <div class="row justify-content-center">
+    <div class="col-md-9 text-center">
+	        <button id="fetchWithin2DaysBtn" class="btn btn-primary">Due Date Within 2 Days</button>
+<button id="fetchDeliveryDatePassedBtn" class="btn btn-secondary">Due Date Passed</button>
+<button id="fetchDeliveredProductsBtn" class="btn btn-success">Delivered Products</button> 
     <!-- Containers to display fetched data -->
-    <div id="within2DaysContainer"></div>
-    <div id="deliveryDatePassedContainer"></div>
-    <div id="deliveredProductsContainer"></div>
+  </div>
+  </div>
 	 <table id="notificationTable">
         <thead>
             <tr>
-                <th>Email</th>
+                <th style="width: 250px;">Email</th>
                 <th>Assigned Work</th>
                 <th>Status</th>
                 <th>Deadline</th>
@@ -129,7 +132,7 @@ if (newRecordsPerPageParam != null) {
                     // Iterate over each user data and append a new row to the table
                     $.each(data, function (index, user) {
                         var row = '<tr>' +
-                            '<td>' + user.email + '</td>' +
+                            '<td style="width: 250px;">' + user.email + '</td>' +
                             '<td>' + user.assignedWork + '</td>' +
                             '<td>' + user.status + '</td>' +
                             '<td>' + user.deadline + '</td>' +
@@ -165,16 +168,37 @@ if (newRecordsPerPageParam != null) {
                      // Iterate over each user data and append a new row to the table
                      $.each(data, function (index, user) {
                          var row = '<tr>' +
-                             '<td>' + user.email + '</td>' +
+                             '<td class="email" style="width: 250px;" >' + user.email + '</td>' +
                              '<td>' + user.assignedWork + '</td>' +
                              '<td>' + user.status + '</td>' +
                              '<td>' + user.deadline + '</td>' +
                              '<td>' +
                              '</td>' +
+                             '<td>' +
+                             '<button class="remindBtn">Remind</button>' +
+                             '</td>' +
                              '</tr>';
                          var $row = $(row);
                          // Attach event listeners to the edit and delete buttons in this row
-                         
+                           $row.find('.remindBtn').on('click', function() {
+                    var email = $(this).closest('tr').find('.email').text();
+
+                    // Make an AJAX call to the controller endpoint
+                    $.ajax({
+                        type: 'POST',
+                        url: 'remindUserController', // Update the URL with your controller endpoint
+                        data: { email: email },
+                        dataType: 'json',
+                        success: function(response) {
+                            // Handle success response if needed
+                            console.log('Reminder sent successfully to: ' + email);
+                        },
+                        error: function(error) {
+                            console.error('Error sending reminder:', error);
+                        }
+                    });
+                });
+
 
                          $('#notificationTable tbody').append($row);
                      });
@@ -198,7 +222,7 @@ if (newRecordsPerPageParam != null) {
                     // Iterate over each user data and append a new row to the table
                     $.each(data, function (index, user) {
                         var row = '<tr>' +
-                            '<td>' + user.email + '</td>' +
+                            '<td style="width: 250px;">' + user.email + '</td>' +
                             '<td>' + user.assignedWork + '</td>' +
                             '<td>' + user.status + '</td>' +
                             '<td>' + user.deadline + '</td>' +

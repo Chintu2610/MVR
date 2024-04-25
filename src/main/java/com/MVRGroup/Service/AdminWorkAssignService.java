@@ -37,8 +37,13 @@ public class AdminWorkAssignService {
 	        workAssign.setEmail(email);
 	        workAssign.setAssignedWork(work);
 	        workAssign.setStatus(status);
+	        
+	        Integer workId1 = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work);
+	        if(workId1 != null && workId1 > 0) {
+	            return;
+	        }
 		workAssignRepo.assignWork(email,work,email,status, deadLine);
-
+		
 		int workId = workAssignRepo.findWorkidByEmailAndAssignedWork(email, work); 
 
 		
