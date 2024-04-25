@@ -33,5 +33,6 @@ public class WorkAssign {
 	 private String status;
     @Column
     private Date deadLine;
-   
+    @Column
+    private Date WorkAssignDate;
 }

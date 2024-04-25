@@ -24,6 +24,6 @@ public interface UserRepository extends JpaRepository<User,Integer>{
 	@Query(value ="SELECT * from user where roleid>=1",nativeQuery = true)
 	List<User> findAllUsers();
 	//User findByUserId(Integer userId);
-	@Query(value ="SELECT * from user where ",nativeQuery = true)
+	@Query(value ="SELECT * from user where  MONTH(registerdate) = MONTH(CURDATE())",nativeQuery = true)
 	List<User> getnumberOfUsersRegisteredThisMonth();
 }

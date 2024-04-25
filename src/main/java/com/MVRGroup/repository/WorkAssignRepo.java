@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.MVRGroup.entity.User;
 import com.MVRGroup.entity.WorkAssign;
 
 import jakarta.transaction.Transactional;
@@ -15,8 +16,8 @@ import jakarta.transaction.Transactional;
 public interface WorkAssignRepo extends JpaRepository<WorkAssign,Integer>{
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO assigned_user_work (userid, assigned_work, email,status,dead_line) " +
-            "VALUES ((SELECT userid FROM user WHERE email = ?1), ?2, ?3,?4,?5)",
+    @Query(value = "INSERT INTO assigned_user_work (userid, assigned_work, email,status,dead_line,work_assign_date) " +
+            "VALUES ((SELECT userid FROM user WHERE email = ?1), ?2, ?3,?4,?5,curdate())",
     nativeQuery = true)
     void assignWork(String email, String work, String userEmail, String status,String deadline);
     @Transactional
@@ -43,4 +44,6 @@ public interface WorkAssignRepo extends JpaRepository<WorkAssign,Integer>{
     
     @Query(value = "select * from assigned_user_work where userid=?1",nativeQuery = true)
     List<WorkAssign> findAllByUserId(int userid);
+    @Query(value ="SELECT * from assigned_user_work where  MONTH(work_assign_date) = MONTH(CURDATE())",nativeQuery = true)
+	List<WorkAssign> numberOfWorksAssignedThisMonth();
 }
