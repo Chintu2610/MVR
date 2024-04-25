@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.MVRGroup.dto.WorkAssignDTO;
 import com.MVRGroup.entity.WorkAssign;
 
 import jakarta.transaction.Transactional;

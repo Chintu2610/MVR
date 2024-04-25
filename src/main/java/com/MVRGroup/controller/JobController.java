@@ -88,4 +88,13 @@ public class JobController {
             return "error-page"; // Redirect to an error page
         }
     }
+    
+    @GetMapping("/UserJobs")
+    public ResponseEntity<List<JobEntity>> viewUserJobs(@RequestParam Integer userid) {
+        List<JobEntity> userJobs = jobService.getJobsByUserId(userid);
+        return new ResponseEntity<>(userJobs, HttpStatus.OK);
+    }
+
+    
+    
 }
