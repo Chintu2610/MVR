@@ -69,4 +69,8 @@ public class JobService {
 	}	
 	
 	
+	 public List<JobEntity> getJobsByUserId(Integer userId) {
+	        return jobRepository.findByUserid(userId);
+	    }
+	
 }
