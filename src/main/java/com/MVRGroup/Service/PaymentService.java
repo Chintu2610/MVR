@@ -21,4 +21,11 @@ public class PaymentService {
     public List<PaymentEntity> getAllPayment() {
         return paymentRepository.findAll();
     }
+    
+    @Autowired
+	private PaymentRepository repository;
+	public PaymentEntity savePayment(PaymentEntity entity)
+	{
+		  return repository.save(entity);
+}
 }
