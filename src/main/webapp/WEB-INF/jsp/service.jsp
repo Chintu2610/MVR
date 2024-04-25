@@ -30,11 +30,12 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
   
-    
     <title>Service</title>
 
 </head>
 <body>
+
+
 <div class="main-wrapper">
     <jsp:include page="header.jsp" />
     <jsp:include page="sidebar.jsp" /> 
@@ -81,10 +82,8 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
         </div>
     </div>
 </div>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<!-- <script src="js/bootstrap.min.js"></script> -->
-<script src="js/jquery.slimscroll.min.js"></script>
+
+
 <script>
     $(document).ready(function() {
         // Function to fetch service details via AJAX
@@ -185,30 +184,35 @@ var cardHtml =
             });
         }
 
-        // Function to attach event listener for edit buttons
-      // Function to attach event listener for edit buttons
-function attachEditButtonListener() {
-    $('.editService').click(function(e) {
-        e.preventDefault(); // Prevent default link behavior
-        
-        // Extract service details from the clicked edit button
-        var service_id = $(this).data('service-id');
-        var image_url = $(this).data('image-url');
-        var service_name = $(this).data('service-name');
-        var url = $(this).data('url');
-        
-        // Populate the modal fields with service details
-        $('#editservice_id').val(service_id);
-        $('#editimage_url').val(image_url);
-        $('#editservice_name').val(service_name);
-        $('#editurl').val(url);
-        
-        // Show the edit modal
-        $('#editModal').modal('show');
-    });
-}
+     // Function to attach event listener for edit buttons
+        function attachEditButtonListener() {
+            $('.editService').click(function(e) {
+                e.preventDefault(); // Prevent default link behavior
+                // Extract service details from the clicked edit button
+                var service_id = $(this).data('service-id');
+                var image_url = $(this).data('image-url');
+                var service_name = $(this).data('service-name');
+                var url = $(this).data('url');
+                
+                // Populate the modal fields with service details
+                $('#editService_id').val(service_id);
+                $('#editImage_url').val(image_url);
+                $('#editService_name').val(service_name);
+                $('#editUrl').val(url);
+                
+                // Show the edit modal
+                $('#editModal').modal('show');
+            });
+        }
 
-
+     
+     
+     
+     
+     
+     
+     
+     
         // Fetch service details when the page loads
         fetchServiceDetails();
 
@@ -222,6 +226,11 @@ function attachEditButtonListener() {
 
 <jsp:include page="service_add.jsp" />
 	<jsp:include page="service_edit.jsp" />
-<script src="js/bootstrap.min.js"></script>
+
+<script src="js/jquery-3.2.1.min.js"></script> 
+<script src="js/popper.min.js"></script>
+<!-- <script src="js/bootstrap.min.js"></script> -->
+<script src="js/jquery.slimscroll.min.js"></script>
+
 </body>
 </html>

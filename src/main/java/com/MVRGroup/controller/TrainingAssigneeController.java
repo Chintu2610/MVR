@@ -7,6 +7,7 @@ import com.MVRGroup.entity.TrainingAssigneeEntity;
 import com.MVRGroup.entity.TrainingEntity;
 import com.MVRGroup.entity.User;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,11 +66,12 @@ public class TrainingAssigneeController {
 	public String addTraining(@RequestParam("userid") Integer userid,
 	                          @RequestParam("trainingassignestatus") String trainingassignestatus,
 	                          @RequestParam("trainingid") Integer trainingid) {
-
+		String date = LocalDate.now().toString();
 	    TrainingAssigneeEntity entityy = new TrainingAssigneeEntity();
 	    entityy.setUserid(userid);
 	    entityy.setTrainingassignestatus(trainingassignestatus);
 	    entityy.setTrainingid(trainingid);
+	    entityy.setDate(date);
 
 	    try {
 	        trainingassigneeService.saveTrainingAssignee(entityy);

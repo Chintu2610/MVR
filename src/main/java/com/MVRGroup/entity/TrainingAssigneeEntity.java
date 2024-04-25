@@ -29,7 +29,16 @@ public class TrainingAssigneeEntity {
     @Column(name = "trainingid")
     private int trainingid;
   
+    public int getDate() {
+		return date;
+	}
 
+	public void setDate(int date) {
+		this.date = date;
+	}
+
+	@Column(name = "date")
+    private int date;
 	/*
 	 * @ManyToOne
 	 * 

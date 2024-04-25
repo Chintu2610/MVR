@@ -212,6 +212,6 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
 <%-- <jsp:include page="subservice_add.jsp">
     <jsp:param name="serviceId" value="<%= serviceId %>" />
 </jsp:include> --%>
-<script src="js/bootstrap.min.js"></script>
+<!-- <script src="js/bootstrap.min.js"></script> -->
 </body>
 </html>
