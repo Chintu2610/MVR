@@ -30,7 +30,7 @@ public class WorkAssignController {
 		return "assign_work";
 	}
 	 @PostMapping("/assign_work")
-	    public String assignWorkUser(@RequestParam String email,@RequestParam String work,@RequestParam Map<String, String> rawMaterials)
+	    public String assignWorkUser(@RequestParam String email,@RequestParam String work,@RequestParam Map<String, String> rawMaterials,@RequestParam String deadLine)
 		{
 		 Map<String, Integer> rawMaterials1 = new HashMap<>();
 
@@ -62,7 +62,7 @@ public class WorkAssignController {
 		            }
 		        }
 		    }
-	        adminservice.AssignWork(email,work,rawMaterials1, work);
+	        adminservice.AssignWork(email,work,rawMaterials1, deadLine);
 			return  "redirect:/assign_work";
 		}
 	 
@@ -87,6 +87,7 @@ public class WorkAssignController {
 		    	        workAssignDTO.setEmail(workAssign.getEmail());
 		    	        workAssignDTO.setAssignedWork(workAssign.getAssignedWork());
 		    	        workAssignDTO.setStatus(workAssign.getStatus());
+		    	        workAssignDTO.setDeadline(workAssign.getDeadLine());
 		    	        // Map user ID from associated User entity
 		    	        if (workAssign.getUser() != null) {
 		    	            workAssignDTO.setUserId(workAssign.getUser().getUserid());

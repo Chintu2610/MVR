@@ -17,19 +17,19 @@ public interface WorkAssignRepo extends JpaRepository<WorkAssign,Integer>{
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO assigned_user_work (userid, assigned_work, email,status,dead_line) " +
-            "VALUES ((SELECT userid FROM user WHERE email = ?1), ?2, ?3,?4,?5) inner join update user set assignedworkstatus=\"Not Available\"",
+            "VALUES ((SELECT userid FROM user WHERE email = ?1), ?2, ?3,?4,?5)",
     nativeQuery = true)
     void assignWork(String email, String work, String userEmail, String status,String deadline);
-    
+    @Transactional
     @Modifying
     @Query(value = "UPDATE user SET assignedworkstatus = 'Not Available' WHERE email = ?1",
         nativeQuery = true)
     void updateAssignedWorkStatus(String email);
     @Query(value = "SELECT wa.workid FROM WorkAssign wa WHERE wa.email = ?1 AND wa.assignedWork = ?2")
-    int findWorkidByEmailAndAssignedWork(String email, String assignedWork);
+    Integer findWorkidByEmailAndAssignedWork(String email, String assignedWork);
     @Query(value = "SELECT * FROM assigned_user_work w " +
-            "WHERE w.dead_line >= CURDATE() - INTERVAL 2 DAY " +
-            "AND w.dead_line < CURDATE()", nativeQuery = true)
+            "WHERE w.dead_line <= CURDATE() + INTERVAL 2 DAY " +
+            "AND w.dead_line > CURDATE()", nativeQuery = true)
 	List<WorkAssign> getWithin2DaysData();
     @Query(value = "SELECT * \r\n"
     		+ "FROM mvrgroup.assigned_user_work \r\n"
