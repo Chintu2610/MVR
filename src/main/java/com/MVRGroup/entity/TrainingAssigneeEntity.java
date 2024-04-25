@@ -29,16 +29,16 @@ public class TrainingAssigneeEntity {
     @Column(name = "trainingid")
     private int trainingid;
   
-    public int getDate() {
+    public String getDate() {
 		return date;
 	}
 
-	public void setDate(int date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
 	@Column(name = "date")
-    private int date;
+    private String date;
 	/*
 	 * @ManyToOne
 	 * 
