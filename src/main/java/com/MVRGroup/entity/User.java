@@ -34,8 +34,18 @@ public class User {
 
 	@Column(name = "paid250")
 	    private String paid250;
+	
+	@Column
+	private String registerdate;
+	
 	 
-	 public String getPaid250() {
+	 public String getRegisterdate() {
+		return registerdate;
+	}
+	public void setRegisterdate(String registerdate) {
+		this.registerdate = registerdate;
+	}
+	public String getPaid250() {
 		return paid250;
 	}
 	public void setPaid250(String paid250) {

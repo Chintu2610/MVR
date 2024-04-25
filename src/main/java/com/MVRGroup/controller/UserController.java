@@ -1,5 +1,6 @@
 package com.MVRGroup.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class UserController {
 	        paid250="pending";
 	    }
 	    String assignedworkstatus = "Available";
+		String registerdate = LocalDate.now().toString(); 
 		User entityy = new User();
 	    entityy.setName(name);
 	    entityy.setAddress(address);
@@ -62,7 +64,7 @@ public class UserController {
 	    entityy.setPaid250(paid250);
 	    entityy.setApprovestatus(approvestatus);
 	    entityy.setAssignedworkstatus(assignedworkstatus);
-	 
+	    entityy.setRegisterdate(registerdate);
 
 	    try {
 	    	userservice.saveUser(entityy);
@@ -114,7 +116,8 @@ public class UserController {
                 @RequestParam("approvestatus") String approvestatus,
                 @RequestParam("roleid") Integer roleid) {
 	        try {
-	            
+	        	
+	        	//String registerdate = LocalDate.now().toString(); 
 	        	User entityy = new User();
 	    	    entityy.setName(name);
 	    	    entityy.setAddress(address);
@@ -124,7 +127,8 @@ public class UserController {
 	    	    entityy.setRoleid(roleid);
 	    	    entityy.setPaid250(paid250);
 	    	    entityy.setApprovestatus(approvestatus);
-
+	    	  //  entityy.setRegisterdate(registerdate);
+	    	    
 	    	    userservice.EditUser(entityy);
 
 	            return "redirect:/training";

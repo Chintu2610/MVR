@@ -76,7 +76,6 @@ public class LoginController {
 	             model.addAttribute("message", user);
 	             return "admin_dashboard";
 	         } else {
-	             // Redirect user to a different page for users with role ID other than 2
 	             return "redirect:/access-denied";
 	         }
 	     } else {
