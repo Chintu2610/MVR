@@ -151,6 +151,22 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                             </div>
                         </div>
                     </div>
+                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                        <div class="card dash-widget">
+                            <div class="card-body">
+                               
+                                    <span class="dash-widget-icon"><i class="fa fa-file-text-o"></i></i></span>
+                                    <div class="dash-widget-info">
+                                      
+                                     
+                                        <h4><a href="reports" style="text-decoration: none; color: inherit;"> <%--  <%=ReferralBonus %> --%>
+                                     <br><span> Reports</span>
+                                        </a></h4>
+                                    </div>
+                           
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
