@@ -212,10 +212,9 @@ if (newRecordsPerPageParam != null) {
             // Change table headers
             $('#notificationTable thead').html(
                 '<tr>' +
-                '<th>Email</th>' +
-                '<th>Assigned Work</th>' +
+                '<th>TrainingassigneId</th>' +
+                '<th>Date</th>' +
                 '<th>Status</th>' +
-                '<th>Deadline</th>' +
                 '</tr>'
             );
 
@@ -231,10 +230,10 @@ if (newRecordsPerPageParam != null) {
                     // Iterate over each user data and append a new row to the table
                     $.each(data, function (index, user) {
                         var row = '<tr>' +
-                            '<td style="width: 250px;">' + user.email + '</td>' +
-                            '<td>' + user.assignedWork + '</td>' +
-                            '<td>' + user.status + '</td>' +
-                            '<td>' + user.deadline + '</td>' +
+                            '<td ">' + user.trainingassigneid + '</td>' +
+                            '<td>' + user.date + '</td>' +
+                            '<td>' + user.trainingassignestatus + '</td>' +
+                            
                             '</tr>';
                         var $row = $(row);
                         // Attach event listeners to the edit and delete buttons in this row
