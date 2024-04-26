@@ -83,17 +83,55 @@ public class Userservice {
 	{
 		
 		Optional<User> user= repository.findByEmail(dto.getEmail());	
+		
 		if (user.isPresent())
 		{
-			if(user.get().getEmail().equals("admin@gmail.com"))
+			User myuser=user.get();
+			if(myuser.getEmail().equals("admin@gmail.com"))
 			{
-				dto.setRoleid(1);
+				myuser.setRoleid(1);
 			}else
 			{
-				dto.setRoleid(2);
+				myuser.setRoleid(2);
 			}
-			dto.setUserid(user.get().getUserid());
-			repository.save(dto);
+			if(dto.getAddress()!=null)
+			{
+				myuser.setAddress(dto.getAddress());
+			}
+			if(dto.getApprovestatus()!=null)
+			{
+				myuser.setApprovestatus(dto.getApprovestatus());
+			}
+			if(dto.getAssignedworkstatus()!=null)
+			{
+				myuser.setAssignedworkstatus(dto.getAssignedworkstatus());
+			}
+			if(dto.getEmail()!=null)
+			{
+				myuser.setEmail(dto.getEmail());
+			}
+			if(dto.getName()!=null)
+			{
+				myuser.setName(dto.getName());
+			}
+			if(dto.getPaid250()!=null)
+			{
+				myuser.setPaid250(dto.getPaid250());
+			}
+			if(dto.getPassword()!=null)
+			{
+				myuser.setPassword(dto.getPassword());
+			}
+			if(dto.getPhoneNum()!=null)
+			{
+				myuser.setPhoneNum(dto.getPhoneNum());
+			}
+			if(dto.getRegisterdate()!=null)
+			{
+				myuser.setRegisterdate(dto.getRegisterdate());
+			}
+			
+			repository.save(myuser);
 			return "user updated successfull";
 		}
 		return "cant update user";		

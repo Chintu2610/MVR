@@ -79,9 +79,7 @@ if (newRecordsPerPageParam != null) {
                 <li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
                 <li class="breadcrumb-item active">reports</li>
             </ul>
-            <div class="col-sm-4 text-right"> <!-- Adjust column size as needed -->
-        <a href="assign_work" class="btn btn-primary">View All Assigned Works</a>
-    </div>
+          
         </div>
     </div>
 </div>
@@ -89,20 +87,21 @@ if (newRecordsPerPageParam != null) {
             </div>
              <!-- Main Headings with Toggleable Content -->
      <div class="row justify-content-center">
-    <div class="col-md-9 text-center">
-<button id="fetchWithin2DaysBtn" class="btn btn-primary">Number of Users Registered This Month</button>
-<button id="fetchDeliveryDatePassedBtn" class="btn btn-secondary">Due Date Passed</button>
-<button id="fetchDeliveredProductsBtn" class="btn btn-success">Delivered Products</button> 
+    <div class="col-md-12 text-center">
+<button id="numberOfUsersRegisteredThisMonth" class="btn btn-primary">Number of Users Registered This Month</button>
+<button id="fetchDeliveryDatePassedBtn" class="btn btn-secondary">Number of Projects Assigned This Month</button>
+<button id="numberOfTrainingCompletedThisMonth" class="btn btn-success">Number of Training Completed This Month</button> 
     <!-- Containers to display fetched data -->
   </div>
   </div>
 	 <table id="notificationTable">
         <thead>
             <tr>
+            	<th>Name</th>
+            	<th>Address</th>
                 <th style="width: 250px;">Email</th>
-                <th>Assigned Work</th>
-                <th>Status</th>
-                <th>Deadline</th>
+                <th>Ph. No</th>
+                
                 <!-- Add more table headers if needed -->
             </tr>
         </thead>
@@ -115,23 +114,32 @@ if (newRecordsPerPageParam != null) {
     
     <!-- Add your JavaScript at the end of the body -->
     <script>
-        function fetchWithin2DaysData() {
+        function numberOfUsersRegisteredThisMonth() {
             // Make an AJAX request to the server-side endpoint to fetch all user details
             $.ajax({
                 type: 'GET',
                 url: 'numberOfUsersRegisteredThisMonth',
                 dataType: 'json',
                 success: function (data) {
+                	$('#notificationTable thead').html(
+                            '<tr>' +
+                            '<th>Name</th>' +
+                            '<th>Address</th>' +
+                            '<th style="width: 250px;">Email</th>' +
+                            '<th>Ph. No</th>' +
+                           
+                            '</tr>'
+                        );
                     // Clear the table body before populating with new data
                     $('#notificationTable tbody').empty();
-
                     // Iterate over each user data and append a new row to the table
                     $.each(data, function (index, user) {
+                    	
                         var row = '<tr>' +
+                            '<td >' + user.name + '</td>' +
+                            '<td>' + user.address + '</td>' +
                             '<td style="width: 250px;">' + user.email + '</td>' +
-                            '<td>' + user.assignedWork + '</td>' +
-                            '<td>' + user.status + '</td>' +
-                            '<td>' + user.deadline + '</td>' +
+                            '<td>' + user.phoneNum + '</td>' +
                             '<td>' +
                             '</td>' +
                             '</tr>';
@@ -149,67 +157,24 @@ if (newRecordsPerPageParam != null) {
         }
 		
         // Attach click event listener to the button
-        document.getElementById('fetchWithin2DaysBtn').addEventListener('click', fetchWithin2DaysData);
+        document.getElementById('numberOfUsersRegisteredThisMonth').addEventListener('click', numberOfUsersRegisteredThisMonth);
 
-        // Function to fetch data for deliveries with a delivery date passed
-        function fetchDeliveryDatePassedData() {
-        	 $.ajax({
-                 type: 'GET',
-                 url: 'getDeliveryDatePassedData',
-                 dataType: 'json',
-                 success: function (data) {
-                     // Clear the table body before populating with new data
-                     $('#notificationTable tbody').empty();
+        function numberOfWorksAssignedThisMonth() {
+            // Change table headers
+            $('#notificationTable thead').html(
+                '<tr>' +
+                '<th>Email</th>' +
+                '<th>Assigned Work</th>' +
+                '<th>Status</th>' +
+                '<th>Deadline</th>' +
+                '<th>Action</th>' +
+                '</tr>'
+            );
 
-                     // Iterate over each user data and append a new row to the table
-                     $.each(data, function (index, user) {
-                         var row = '<tr>' +
-                             '<td class="email" style="width: 250px;" >' + user.email + '</td>' +
-                             '<td>' + user.assignedWork + '</td>' +
-                             '<td>' + user.status + '</td>' +
-                             '<td>' + user.deadline + '</td>' +
-                             '<td>' +
-                             '</td>' +
-                             '<td>' +
-                             '<button class="remindBtn">Remind</button>' +
-                             '</td>' +
-                             '</tr>';
-                         var $row = $(row);
-                         // Attach event listeners to the edit and delete buttons in this row
-                           $row.find('.remindBtn').on('click', function() {
-                    var email = $(this).closest('tr').find('.email').text();
-
-                    // Make an AJAX call to the controller endpoint
-                    $.ajax({
-                        type: 'POST',
-                        url: 'remindUserController', // Update the URL with your controller endpoint
-                        data: { email: email },
-                        dataType: 'json',
-                        success: function(response) {
-                            // Handle success response if needed
-                            console.log('Reminder sent successfully to: ' + email);
-                        },
-                        error: function(error) {
-                            console.error('Error sending reminder:', error);
-                        }
-                    });
-                });
-
-
-                         $('#notificationTable tbody').append($row);
-                     });
-                 },
-                 error: function (error) {
-                     console.error('Error fetching user details:', error);
-                 }
-             });
-        }
-
-        // Function to fetch data for delivered products
-        function fetchDeliveredProductsData() {
-        	$.ajax({
+            // Make an AJAX request to fetch data for works assigned this month
+            $.ajax({
                 type: 'GET',
-                url: 'getDeliveredProductsData',
+                url: 'numberOfWorksAssignedThisMonth',
                 dataType: 'json',
                 success: function (data) {
                     // Clear the table body before populating with new data
@@ -218,16 +183,17 @@ if (newRecordsPerPageParam != null) {
                     // Iterate over each user data and append a new row to the table
                     $.each(data, function (index, user) {
                         var row = '<tr>' +
-                            '<td style="width: 250px;">' + user.email + '</td>' +
+                            '<td class="email" style="width: 250px;">' + user.email + '</td>' +
                             '<td>' + user.assignedWork + '</td>' +
                             '<td>' + user.status + '</td>' +
                             '<td>' + user.deadline + '</td>' +
                             '<td>' +
                             '</td>' +
+                            '<td>' +
+                            '</td>' +
                             '</tr>';
                         var $row = $(row);
                         // Attach event listeners to the edit and delete buttons in this row
-                        
 
                         $('#notificationTable tbody').append($row);
                     });
@@ -238,9 +204,52 @@ if (newRecordsPerPageParam != null) {
             });
         }
 
-        // Attach click event listeners to the buttons
-        document.getElementById('fetchDeliveryDatePassedBtn').addEventListener('click', fetchDeliveryDatePassedData);
-        document.getElementById('fetchDeliveredProductsBtn').addEventListener('click', fetchDeliveredProductsData);
+        // Attach click event listener to the button for works assigned this month
+        document.getElementById('fetchDeliveryDatePassedBtn').addEventListener('click', numberOfWorksAssignedThisMonth);
+
+        // Function to fetch data for delivered products
+        function numberOfTrainingCompletedThisMonth() {
+            // Change table headers
+            $('#notificationTable thead').html(
+                '<tr>' +
+                '<th>TrainingassigneId</th>' +
+                '<th>Date</th>' +
+                '<th>Status</th>' +
+                '</tr>'
+            );
+
+            // Make an AJAX request to fetch data for delivered products
+            $.ajax({
+                type: 'GET',
+                url: 'numberOfTrainingCompletedThisMonth',
+                dataType: 'json',
+                success: function (data) {
+                    // Clear the table body before populating with new data
+                    $('#notificationTable tbody').empty();
+
+                    // Iterate over each user data and append a new row to the table
+                    $.each(data, function (index, user) {
+                        var row = '<tr>' +
+                            '<td ">' + user.trainingassigneid + '</td>' +
+                            '<td>' + user.date + '</td>' +
+                            '<td>' + user.trainingassignestatus + '</td>' +
+                            
+                            '</tr>';
+                        var $row = $(row);
+                        // Attach event listeners to the edit and delete buttons in this row
+
+                        $('#notificationTable tbody').append($row);
+                    });
+                },
+                error: function (error) {
+                    console.error('Error fetching user details:', error);
+                }
+            });
+        }
+
+        // Attach click event listener to the button for delivered products
+        document.getElementById('numberOfTrainingCompletedThisMonth').addEventListener('click', numberOfTrainingCompletedThisMonth);
+
     </script>
        </div>
        </div>

@@ -19,6 +19,7 @@ public class WorkAssignDTO {
     private String Name;
     private String status;// Add more user properties as needed
     private Date deadline;
+    private Date workAssignDate;
     public WorkAssignDTO(WorkAssign workAssign) {
         this.id = workAssign.getWorkid();
         this.email = workAssign.getEmail();
@@ -27,5 +28,6 @@ public class WorkAssignDTO {
         this.Name = workAssign.getUser().getName() ;
         this.status=workAssign.getStatus();// Assuming User has a firstName field
         this.deadline=workAssign.getDeadLine();
+        this.workAssignDate=workAssign.getWorkAssignDate();
     }
 }

@@ -32,6 +32,7 @@ public class ProfileController {
         return null;
     }
     
+
     @RequestMapping(value = "/ProfileDetailsbyUserid", method = RequestMethod.GET)
     public ResponseEntity<User> viewProfileDetailsusinguserid(@RequestParam int userid) {    	
 		User userDetails = userservice.GetUserDetailsusingUserid(userid);
@@ -40,6 +41,6 @@ public class ProfileController {
     
 
     
-    
+
     
 }
