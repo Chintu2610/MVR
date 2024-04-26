@@ -166,5 +166,12 @@ public class Userservice {
 	    }
 	 
 	 
-	
+	 public User GetUserDetailsusingUserid(int userid)
+		{
+				Optional<User> user= repository.findById(userid);					
+				if (user.isPresent()) {									
+				return user.get();
+				}
+		        return null;		
+		}
 }

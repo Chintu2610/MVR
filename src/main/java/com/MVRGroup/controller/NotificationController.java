@@ -36,8 +36,25 @@ public class NotificationController {
 	        // Replace this with your actual logic to fetch data for deliveries within 2 days
 	        return works;
 	    }
+	 @GetMapping("/getWithin2DaysDataUser")
+	 @ResponseBody 
+	    public List<WorkAssignDTO> getWithin2DaysDataUser(@RequestParam int userid) {
+		 List<WorkAssignDTO> works= workservice.getWithin2DaysDataByuserid(userid);
+	        // Replace this with your actual logic to fetch data for deliveries within 2 days
+	        return works;
+	    }
+	 
 	 	
 	    // Controller method to fetch data for deliveries with a delivery date passed
+	    @GetMapping("/getDeliveryDatePassedDatabyUserid")
+	    @ResponseBody 
+	    public List<WorkAssignDTO> getDeliveryDatePassedDatabyUserid(@RequestParam int userid) {
+	    	 List<WorkAssignDTO> works= workservice.getDeliveryDatePassedDataByUserid(userid);
+		        // Replace this with your actual logic to fetch data for deliveries within 2 days
+		        return works;
+	    }
+	    
+	    
 	    @GetMapping("/getDeliveryDatePassedData")
 	    @ResponseBody 
 	    public List<WorkAssignDTO> getDeliveryDatePassedData() {
@@ -46,7 +63,7 @@ public class NotificationController {
 		        return works;
 	    }
 
-	    // Controller method to fetch data for delivered products
+	    // Controller method to fetch data for delivered products 
 	    @GetMapping("/getDeliveredProductsData")
 	    @ResponseBody
 	    public List<WorkAssignDTO> getDeliveredProductsData() {
@@ -54,9 +71,22 @@ public class NotificationController {
 		        // Replace this with your actual logic to fetch data for deliveries within 2 days
 		        return works;
 	    }
+	    
+	    
+	    @GetMapping("/getDeliveredProductsDatabyUserid")
+	    @ResponseBody
+	    public List<WorkAssignDTO> getDeliveredProductsDatabyUserid(@RequestParam int userid) {
+	    	 List<WorkAssignDTO> works= workservice.getDeliveredProductsDatabyUserid(userid);
+		        // Replace this with your actual logic to fetch data for deliveries within 2 days
+		        return works;
+	    }
+	    
+	    
 	    @PostMapping("/remindUserController")    
 	    public String remindUserController(@RequestParam String email) {
 	    	mailsrv.sendLinkEmail(email);
 	    	 return "mail sended successfully";   
 	    }
+
+	    
 }

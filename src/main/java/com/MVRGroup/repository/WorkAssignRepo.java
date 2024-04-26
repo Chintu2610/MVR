@@ -43,4 +43,27 @@ public interface WorkAssignRepo extends JpaRepository<WorkAssign,Integer>{
     
     @Query(value = "select * from assigned_user_work where userid=?1",nativeQuery = true)
     List<WorkAssign> findAllByUserId(int userid);
+    
+    
+    
+    @Query(value = "SELECT * FROM assigned_user_work w " +
+            "WHERE w.dead_line <= CURDATE() + INTERVAL 2 DAY " +
+            "AND w.dead_line > CURDATE()  AND userid=?1 ", nativeQuery = true)
+	List<WorkAssign> getWithin2DaysDataByuserid(int userid);
+    
+    
+    
+    @Query(value = "SELECT * \r\n"
+    		+ "FROM mvrgroup.assigned_user_work \r\n"
+    		+ "WHERE dead_line <CURDATE()  AND userid=?1 " 
+            , nativeQuery = true)
+	List<WorkAssign> getDeliveryDatePassedDataByuserid(int userid);
+    
+    
+    @Query(value = "SELECT * \r\n"
+    		+ "FROM mvrgroup.assigned_user_work \r\n"
+    		+ "WHERE status=\"delivered\"  AND userid=?1" 
+            , nativeQuery = true)
+	List<WorkAssign> getDeliveredProductsDataByUserId(int userid);
+    
 }

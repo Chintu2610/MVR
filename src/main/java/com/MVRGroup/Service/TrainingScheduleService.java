@@ -68,4 +68,10 @@ public class TrainingScheduleService {
 		 return " ID " + trainingscheduleid + " not found";
 		   
 	}	
+	
+	  public List<TrainingScheduleEntity> getAllTrainingScheduleWithTraininName() {
+	        return TrainingScheduleRepository.findAllByTrainingID();
+	    }
+
+	
 }

@@ -31,4 +31,15 @@ public class ProfileController {
     	userservice.UpdateUser(dto);
         return null;
     }
+    
+    @RequestMapping(value = "/ProfileDetailsbyUserid", method = RequestMethod.GET)
+    public ResponseEntity<User> viewProfileDetailsusinguserid(@RequestParam int userid) {    	
+		User userDetails = userservice.GetUserDetailsusingUserid(userid);
+        return ResponseEntity.ok(userDetails);
+    }
+    
+
+    
+    
+    
 }
