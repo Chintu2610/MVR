@@ -10,6 +10,6 @@ import java.util.List;
 public interface TrainingAssigneeRepository extends JpaRepository<TrainingAssigneeEntity, Integer> {
     // You can add custom query methods here if needed
     List<TrainingAssigneeEntity> findAll(); // Retrieve all services
-    @Query(value ="SELECT * from assigned_user_work where  MONTH(work_assign_date) = MONTH(CURDATE())",nativeQuery = true)
+    @Query(value ="SELECT * from trainingassigne where  MONTH(date) = MONTH(CURDATE())",nativeQuery = true)
 	List<TrainingAssigneeEntity> numberOfTrainingCompletedThisMonth();
 }
