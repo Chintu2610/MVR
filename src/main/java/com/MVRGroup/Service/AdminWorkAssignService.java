@@ -169,10 +169,64 @@ public class AdminWorkAssignService {
 		}
 		return dto;
 	}
+	public List<WorkAssignDTO> getDeliveredProductsDatabyUserid(int userid) {
+		// TODO Auto-generated method stub
+		List<WorkAssign> works= workAssignRepo.getDeliveredProductsDataByUserId(userid);
+		List<WorkAssignDTO> dto=new ArrayList<>();
+		for(WorkAssign wo:works)
+		{
+			WorkAssignDTO dt=new WorkAssignDTO();			
+			dt.setAssignedWork(wo.getAssignedWork());
+			dt.setDeadline(wo.getDeadLine());
+			dt.setEmail(wo.getEmail());
+			dt.setName(wo.getUser().getName());
+			dt.setStatus(wo.getStatus());
+			dt.setUserId(wo.getUser().getUserid());
+			dto.add(dt);
+		}
+		return dto;
+	}
 
-	
 	
 	 public List<WorkAssign> getAllAssignedWorksByUserId(int userid) {
 	        return workAssignRepo.findAllByUserId(userid);
 	    }
+	 
+	 
+	 public List<WorkAssignDTO> getWithin2DaysDataByuserid(int userid) {
+			// TODO Auto-generated method stub
+			List<WorkAssign> works= workAssignRepo.getWithin2DaysDataByuserid(userid);
+			List<WorkAssignDTO> dto=new ArrayList<>();
+			for(WorkAssign wo:works)
+			{
+				WorkAssignDTO dt=new WorkAssignDTO();			
+				dt.setAssignedWork(wo.getAssignedWork());
+				dt.setDeadline(wo.getDeadLine());
+				dt.setEmail(wo.getEmail());
+				dt.setName(wo.getUser().getName());
+				dt.setStatus(wo.getStatus());
+				dt.setUserId(wo.getUser().getUserid());
+				dto.add(dt);
+			}
+			return dto;
+		}
+	 
+	 
+	 public List<WorkAssignDTO> getDeliveryDatePassedDataByUserid(int userid) {
+			// TODO Auto-generated method stub
+			List<WorkAssign> works= workAssignRepo.getDeliveryDatePassedDataByuserid(userid);
+			List<WorkAssignDTO> dto=new ArrayList<>();
+			for(WorkAssign wo:works)
+			{
+				WorkAssignDTO dt=new WorkAssignDTO();			
+				dt.setAssignedWork(wo.getAssignedWork());
+				dt.setDeadline(wo.getDeadLine());
+				dt.setEmail(wo.getEmail());
+				dt.setName(wo.getUser().getName());
+				dt.setStatus(wo.getStatus());
+				dt.setUserId(wo.getUser().getUserid());
+				dto.add(dt);
+			}
+			return dto;
+		}
 }

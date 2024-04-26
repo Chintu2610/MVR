@@ -3,9 +3,12 @@ package com.MVRGroup.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,6 +33,11 @@ public class TrainingScheduleEntity {
     
     @Column(name = "timings")
     private String timings;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "trainingname", referencedColumnName = "trainingname") // Assuming userid is the foreign key column in AssignedUserWork table
+    private TrainingEntity trainingEntity;
+    
     
     
     @Column(name = "description")
@@ -94,6 +102,19 @@ public class TrainingScheduleEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+	public TrainingEntity getTrainingEntity() {
+		return trainingEntity;
+	}
+
+
+	public void setTrainingEntity(TrainingEntity trainingEntity) {
+		this.trainingEntity = trainingEntity;
+	}
+
+
+
     
     
 }

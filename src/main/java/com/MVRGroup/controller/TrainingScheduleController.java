@@ -2,8 +2,12 @@
 package com.MVRGroup.controller;
 
 import com.MVRGroup.Service.TrainingScheduleService;
+import com.MVRGroup.dto.TrainingScheduleDTO;
+import com.MVRGroup.dto.WorkAssignDTO;
 import com.MVRGroup.entity.TrainingScheduleEntity;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -101,4 +105,34 @@ public class TrainingScheduleController {
             return "error-page"; // Redirect to an error page
         }
     }
+    
+    @GetMapping("/TrainingScheduleDetailsTrainingName")
+    public ResponseEntity<List<TrainingScheduleDTO>> viewAllTrainingScheduleWithTraininName() {
+        List<TrainingScheduleEntity> services = TrainingScheduleService.getAllTrainingScheduleWithTraininName();
+        
+        List<TrainingScheduleDTO> assignedWorksDTO = services.stream()
+	    	    .map(service -> {
+	    	    	TrainingScheduleDTO trainingScheduleDTO = new TrainingScheduleDTO();
+	    	        // Map common properties
+	    	    	trainingScheduleDTO.setDescription(service.getDescription());
+	    	    	if (service.getTrainingEntity() != null) {
+	    	    	trainingScheduleDTO.setTrainingname(service.getTrainingEntity().getTrainingname());
+	    	    	}
+	    	    	trainingScheduleDTO.setTrainingscheduleid(service.getTrainingscheduleid());
+	    	    	trainingScheduleDTO.setEndDate(service.getEndDate());
+	    	    	trainingScheduleDTO.setStartDate(service.getStartDate());
+	    	    	trainingScheduleDTO.setTimings(service.getTimings());
+	    	    	trainingScheduleDTO.setTrainingid(service.getTrainingid());
+	    	        // Map user ID from associated User entity
+	    	        
+	    	        return trainingScheduleDTO;
+	    	    })
+	    	    .collect(Collectors.toList());
+
+	   
+        
+        return new ResponseEntity<>(assignedWorksDTO, HttpStatus.OK);
+    }
+    
+    
 }
