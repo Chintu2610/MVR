@@ -95,7 +95,6 @@ public class WorkAssignController {
 		    	        return workAssignDTO;
 		    	    })
 		    	    .collect(Collectors.toList());
-
 		    return ResponseEntity.ok(assignedWorksDTO);
 		}
 
