@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.MVRGroup.Service.AdminWorkAssignService;
 import com.MVRGroup.Service.SendMailService;
 import com.MVRGroup.dto.WorkAssignDTO;
-import com.MVRGroup.entity.WorkAssign;
 
 @Controller
 public class NotificationController {
@@ -68,7 +67,6 @@ public class NotificationController {
 	    @ResponseBody
 	    public List<WorkAssignDTO> getDeliveredProductsData() {
 	    	 List<WorkAssignDTO> works= workservice.getDeliveredProductsData();
-		        // Replace this with your actual logic to fetch data for deliveries within 2 days
 		        return works;
 	    }
 	    
@@ -77,7 +75,6 @@ public class NotificationController {
 	    @ResponseBody
 	    public List<WorkAssignDTO> getDeliveredProductsDatabyUserid(@RequestParam int userid) {
 	    	 List<WorkAssignDTO> works= workservice.getDeliveredProductsDatabyUserid(userid);
-		        // Replace this with your actual logic to fetch data for deliveries within 2 days
 		        return works;
 	    }
 	    

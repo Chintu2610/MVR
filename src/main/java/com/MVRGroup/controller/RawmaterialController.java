@@ -67,7 +67,7 @@ public class RawmaterialController {
 	 * String name,@RequestParam int rawMaterialID) {
 	 * rawmaterialService.EditRawmaterial(name,rawMaterialID); return
 	 * "redirect:/rawmaterial"; }
-	 */
+	*/
     
     @PostMapping("/rawmaterialedit")
     public String Rawmaterialedit(@RequestParam String rawMaterialID,

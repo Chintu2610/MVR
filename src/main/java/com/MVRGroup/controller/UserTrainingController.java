@@ -31,13 +31,12 @@ public class UserTrainingController {
         return new ResponseEntity<>(services, HttpStatus.OK);
     }
 
-	@GetMapping("/usertraining")
+	@GetMapping("/usertrainingregister")
 	public String viewUserTrainingPage() {
-	    return "usertraining";
+	    return "usertrainingregister";
 	}
 	
-	
-	
+		
 	@PostMapping("/UserTrainingadd")
 	public String addTraining(@RequestParam("userid") Integer userid,
 	                          @RequestParam("trainingscheduleid") Integer trainingscheduleid,
