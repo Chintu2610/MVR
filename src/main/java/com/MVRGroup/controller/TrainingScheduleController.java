@@ -3,7 +3,11 @@ package com.MVRGroup.controller;
 
 import com.MVRGroup.Service.TrainingScheduleService;
 import com.MVRGroup.dto.TrainingScheduleDTO;
+import com.MVRGroup.dto.WorkAssignDTO;
+import com.MVRGroup.entity.TrainingEntity;
 import com.MVRGroup.entity.TrainingScheduleEntity;
+import com.MVRGroup.repository.TrainingRepository;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class TrainingScheduleController {
 
-	
+	@Autowired
 	private final TrainingScheduleService TrainingScheduleService;
+	@Autowired
+	TrainingRepository trainingRepository;
 
-    @Autowired
+    
     public TrainingScheduleController(TrainingScheduleService TrainingScheduleService) {
         this.TrainingScheduleService = TrainingScheduleService;
     }
@@ -39,28 +45,32 @@ public class TrainingScheduleController {
 	    return "trainingschedule";
 	}
 	
-	
-	
 	@PostMapping("/TrainingScheduleadd")
 	public String addTraining(@RequestParam("startDate") String startDate,
 	                          @RequestParam("endDate") String endDate,
 	                          @RequestParam("timings") String timings,
 	                          @RequestParam("description") String description,
 	                          @RequestParam("trainingid") Integer trainingid) {
+//		String trName=trainingRepository.findTrainingNameByTrainingid(trainingid);
+		TrainingEntity existingTrainingEntity = trainingRepository.findById(trainingid).orElse(null);
 
-	    TrainingScheduleEntity entityy = new TrainingScheduleEntity();
-	    entityy.setStartDate(startDate);
-	    entityy.setEndDate(endDate);
-	    entityy.setTimings(timings);
-	    entityy.setDescription(description);
-	    entityy.setTrainingid(trainingid);
+		if (existingTrainingEntity != null) {
+		    // Set the existing TrainingEntity in the TrainingScheduleEntity
+		    TrainingScheduleEntity entity1 = new TrainingScheduleEntity();
+		    entity1.setStartDate(startDate);
+		    entity1.setEndDate(endDate);
+		    entity1.setTimings(timings);
+		    entity1.setDescription(description);
+		    entity1.setTrainingid(trainingid);
+		    entity1.setTrainingEntity(existingTrainingEntity); // Set the existing TrainingEntity here
 
-	    try {
-	        TrainingScheduleService.saveTrainingSchedule(entityy);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        // Handle the exception appropriately
-	    }
+		    try {
+		        TrainingScheduleService.saveTrainingSchedule(entity1);
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        // Handle the exception appropriately
+		    }
+		} 
 
 	    return "redirect:/trainingschedule";
 	}
