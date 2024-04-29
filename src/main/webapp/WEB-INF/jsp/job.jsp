@@ -50,7 +50,7 @@ if (newRecordsPerPageParam != null) {
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/tstyles.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -58,8 +58,18 @@ if (newRecordsPerPageParam != null) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.2.0/js/tableexport.min.js"></script>
     <!-- jQuery -->
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+   
+<!-- <script src="js/bootstrap.min.js"></script> -->
+ <script src="js/jquery.slimscroll.min.js"></script> 
     
+    
+    
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.slimscroll.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
     <title>Services</title>
 <script>
         var recordsPerPage = <%= newRecordsPerPage %>; // Use Java variable in JavaScript
@@ -236,19 +246,6 @@ if (newRecordsPerPageParam != null) {
    </div>
 	<jsp:include page="job_add.jsp" />
 	<jsp:include page="job_edit.jsp" />
-    <!-- Bootstrap Core JS -->
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Slimscroll JS -->
-    <script src="js/jquery.slimscroll.min.js"></script>
-
-    <!-- Select2 JS -->
-    <script src="js/select2.min.js"></script>
-
-    <!-- Datetimepicker JS -->
-    <script src="js/moment.min.js"></script>
-    <script src="js/bootstrap-datetimepicker.min.js"></script>
-
+   
 </body>
 </html>

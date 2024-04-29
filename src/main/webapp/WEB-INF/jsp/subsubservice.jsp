@@ -37,6 +37,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
 </head>
 <body>
 <div class="main-wrapper">
+	 <script src="js/jquery-3.2.1.min.js"></script>
     <jsp:include page="header.jsp" />
     <jsp:include page="sidebar.jsp" /> 
 
@@ -71,7 +72,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
         </div>
     </div>
 </div>
-     <script src="js/jquery-3.2.1.min.js"></script>
+    
 <script>
     $(document).ready(function() {
         // Function to fetch videos via AJAX

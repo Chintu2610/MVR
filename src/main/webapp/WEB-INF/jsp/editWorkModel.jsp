@@ -67,7 +67,7 @@
             <div class="modal-body">
           <div class="form-group">
             <label class="col-form-label">ID <span class="text-danger">*</span></label>
-            <input id="editWorkId" name="workid" required class="form-control" type="text">
+            <input id="editWorkId" name="workid" required class="form-control" type="text" disabled>
         </div>
         <div class="form-group">
             <label class="col-form-label">Name <span class="text-danger">*</span></label>

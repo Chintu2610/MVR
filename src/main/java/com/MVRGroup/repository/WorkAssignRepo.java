@@ -71,5 +71,9 @@ public interface WorkAssignRepo extends JpaRepository<WorkAssign,Integer>{
 
     @Query(value ="SELECT * from assigned_user_work where  MONTH(work_assign_date) = MONTH(CURDATE())",nativeQuery = true)
 	List<WorkAssign> numberOfWorksAssignedThisMonth();
+    @Transactional
+    @Modifying
+    @Query(value ="update assigned_user_work set status='delivered' where workid=?1 ",nativeQuery = true)
+	void updateUserWork(int workid);
 
 }

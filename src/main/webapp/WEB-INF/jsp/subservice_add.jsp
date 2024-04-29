@@ -115,16 +115,11 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
         </div>
     </div>
                
-             <%--   <div class="col-md-12">
-    <div class="form-group">
-        <label for="imageUrl">Image URL <span class="text-danger">*</span></label>
-        <input name="imageUrl" id="imageUrl" class="form-control" type="text" value="${imageUrl}" readonly>
-    </div>
-</div> --%>
+           
 
                 
                 <div class="col-md-12">
-                    <div class="form-group">
+                    <div class="form-group" style="display:none;">
                         <label class="col-form-label">service_id <span class="text-danger">*</span></label>
                         <input name="service_id" required class="form-control" type="text" value="<%= serviceId %>">
                     </div>
