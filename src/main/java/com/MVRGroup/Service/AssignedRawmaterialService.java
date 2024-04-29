@@ -27,8 +27,8 @@
 	
 	public List<AssignedRawMaterial> getAllRawMaterialsUserid(Integer userid)
 	{
-			List<AssignedRawMaterial> raw= repository.findByUserid(userid);					
+//			List<AssignedRawMaterial> raw= repository.findByUserid(userid);					
 			
-	        return raw;		
+	        return null;		
 	}
 }

@@ -112,6 +112,12 @@ public class WorkAssignController {
          adminservice.EditWork(workname,workid);
 		 return "redirect:/works";
 		}
+	 @PostMapping("/updateUserWork")
+	    public ResponseEntity<String> updateUserWork(@RequestParam int workid)
+		{
+		 adminservice.updateUserWork(workid);
+		 return ResponseEntity.ok("updated successfully") ;
+		}
 	 @PostMapping("/deleteWork")
 	    public String deleteWork(@RequestParam int workid)
 		{
@@ -139,6 +145,8 @@ public class WorkAssignController {
 	             workAssignDTO.setEmail(workAssign.getEmail());
 	             workAssignDTO.setAssignedWork(workAssign.getAssignedWork());
 	             workAssignDTO.setStatus(workAssign.getStatus());
+	             workAssignDTO.setDeadline(workAssign.getDeadLine());
+	             workAssignDTO.setWorkAssignDate(workAssign.getWorkAssignDate());
 	             // Map user ID from associated User entity
 	             if (workAssign.getUser() != null) {
 	                 workAssignDTO.setUserId(workAssign.getUser().getUserid());

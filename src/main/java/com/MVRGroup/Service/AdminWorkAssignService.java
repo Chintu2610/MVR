@@ -127,6 +127,7 @@ public class AdminWorkAssignService {
 			WorkAssignDTO dt=new WorkAssignDTO();			
 			dt.setAssignedWork(wo.getAssignedWork());
 			dt.setDeadline(wo.getDeadLine());
+			dt.setWorkAssignDate(wo.getWorkAssignDate());
 			dt.setEmail(wo.getEmail());
 			dt.setName(wo.getUser().getName());
 			dt.setStatus(wo.getStatus());
@@ -202,6 +203,7 @@ public class AdminWorkAssignService {
 				WorkAssignDTO dt=new WorkAssignDTO();			
 				dt.setAssignedWork(wo.getAssignedWork());
 				dt.setDeadline(wo.getDeadLine());
+				dt.setWorkAssignDate(wo.getWorkAssignDate());
 				dt.setEmail(wo.getEmail());
 				dt.setName(wo.getUser().getName());
 				dt.setStatus(wo.getStatus());
@@ -229,4 +231,9 @@ public class AdminWorkAssignService {
 			}
 			return dto;
 		}
+	public void updateUserWork(int workid) {
+		// TODO Auto-generated method stub
+		workAssignRepo.updateUserWork(workid);
+		
+	}
 }

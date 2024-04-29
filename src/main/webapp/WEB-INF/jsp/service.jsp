@@ -29,16 +29,20 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
-  
+  <!-- 	 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --> 
+
     <title>Service</title>
 
 </head>
 <body>
-
+   <script src="js/jquery-3.2.1.min.js"></script>  
+	 <script src="js/popper.min.js"></script>
+	<!--  <script src="js/jquery.slimscroll.min.js"></script> -->
 
 <div class="main-wrapper">
     <jsp:include page="header.jsp" />
     <jsp:include page="sidebar.jsp" /> 
+   
 
     <!-- Page Wrapper -->
     <div class="page-wrapper">
@@ -67,18 +71,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                 <div class="row" id="serviceCards">
                     <!-- Service cards will be dynamically populated here -->
                 </div>
-
-           <!--      Add Service Button
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-                        <button class="btn btn-primary btn-block" id="addServiceButton">Add Service</button>
-                    </div>
-                </div> -->
-                
-               
-                
-                
-            </div>
+	  </div>
         </div>
     </div>
 </div>
@@ -206,13 +199,6 @@ var cardHtml =
         }
 
      
-     
-     
-     
-     
-     
-     
-     
         // Fetch service details when the page loads
         fetchServiceDetails();
 
@@ -222,15 +208,7 @@ var cardHtml =
         });
     });
 </script>
-
-
 <jsp:include page="service_add.jsp" />
-	<jsp:include page="service_edit.jsp" />
-
-<script src="js/jquery-3.2.1.min.js"></script> 
-<script src="js/popper.min.js"></script>
-<!-- <script src="js/bootstrap.min.js"></script> -->
-<script src="js/jquery.slimscroll.min.js"></script>
-
+<jsp:include page="service_edit.jsp" />
 </body>
 </html>

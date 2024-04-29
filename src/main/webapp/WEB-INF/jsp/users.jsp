@@ -133,7 +133,7 @@ function showAllUserDetails() {
                 }
                 row += '</td>';
                 row += '<td style="width:300px;">' + // Add the delete and edit button columns
-                  '<button class="btn btn-danger btn-sm deleteBtn" onclick="deleteRawMaterial(' + user.userid + ')">Delete</button>' +  
+                   
                      '<button class="btn btn-primary btn-sm editBtn" onclick="editRawMaterial(' + user.userid + ', \'' + user.name + '\', \'' + user.email + '\', \'' + user.phoneNum +'\', \'' + user.address + '\', \'' + user.paid250 + '\', \'' + user.approvestatus + '\')">Edit</button>' + 
                        '</td>' +
                        '</tr>';  // End button column and row

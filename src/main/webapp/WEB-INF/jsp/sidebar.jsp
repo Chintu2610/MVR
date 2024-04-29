@@ -65,9 +65,9 @@
 
     </ul>
 </aside>
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
+<!-- <script src="js/jquery-3.2.1.min.js"></script> -->
+<!--  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>  -->
+<!-- <script>
     $(document).ready(function() {
         // Add click event to toggle sublist
         $('.toggle').click(function() {
@@ -79,7 +79,7 @@
             event.stopPropagation();
         });
     });
-</script>
+</script> -->
 
 </body>
 </html>

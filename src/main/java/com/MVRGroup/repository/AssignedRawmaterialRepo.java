@@ -11,7 +11,7 @@ import com.MVRGroup.entity.JobEntity;
 @Repository
 public interface AssignedRawmaterialRepo extends JpaRepository<AssignedRawMaterial, Integer> {
 	
-	 List<AssignedRawMaterial> findByUserid(Integer userid);
+//	 List<AssignedRawMaterial> findByUserid(Integer userid);
 	
 	
 }

@@ -32,7 +32,7 @@ public class ProfileController {
     }
     
 
-    @RequestMapping(value = "/ProfileDetailsbyUserid", method = RequestMethod.GET)
+    @RequestMapping(value = "/ProfileDetailsbyUserid123", method = RequestMethod.GET)
     public ResponseEntity<User> viewProfileDetailsusinguserid(@RequestParam int userid) {    	
 		User userDetails = userservice.GetUserDetailsusingUserid(userid);
         return ResponseEntity.ok(userDetails);

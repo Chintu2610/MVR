@@ -91,6 +91,8 @@ if (newRecordsPerPageParam != null) {
                 data: { workid: workId },
                 success: function(response) {
                     // Handle success response
+                	alert('Deleted Successfully' );
+                	window.location.reload();
                     
                 },
                 error: function(xhr, status, error) {

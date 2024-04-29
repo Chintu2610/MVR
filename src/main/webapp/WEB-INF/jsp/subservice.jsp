@@ -32,11 +32,14 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/tstyle.css">
+    <link rel="stylesheet" href="css/tstyles.css">
     <title>Sub Service</title>
 </head>
 <body>
+	  <script src="js/jquery-3.2.1.min.js"></script>  
+	 <script src="js/popper.min.js"></script>
 <div class="main-wrapper">
+ 
     <jsp:include page="header.jsp" />
     <jsp:include page="sidebar.jsp" /> 
 
@@ -70,9 +73,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
         </div>
     </div>
 </div>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/jquery.slimscroll.min.js"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -194,8 +195,6 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                 $('#editModal').modal('show');
             });
         }
-
-        
         // Fetch service details when the page loads
         var serviceId = '<%= serviceId %>'; // Retrieve serviceId from JSP
         fetchServiceDetails(serviceId);
@@ -206,12 +205,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
         });
     });
 </script>
-
   <jsp:include page="subservice_add.jsp" />  
   <jsp:include page="subservice_edit.jsp" />
-<%-- <jsp:include page="subservice_add.jsp">
-    <jsp:param name="serviceId" value="<%= serviceId %>" />
-</jsp:include> --%>
-<!-- <script src="js/bootstrap.min.js"></script> -->
 </body>
 </html>
