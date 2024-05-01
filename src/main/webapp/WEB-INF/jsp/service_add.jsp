@@ -40,30 +40,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
     <title>Service ADD</title>
    
 <script>
- /*    function submitForm() {
-        var form = document.getElementById('rawMaterialForm');
-        var formData = new FormData(form);
-        var rawmaterial = {};
-        formData.forEach(function(value, key) {
-            rawmaterial[key] = value;
-        });
-        var jsonRawMaterial = JSON.stringify(rawmaterial);
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/serviceadd');
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                // Handle success
-                alert('Raw material added successfully');
-                window.location.reload();
-            } else {
-                // Handle error
-                console.error('Error adding raw material');
-            }
-        };
-        xhr.send(jsonRawMaterial);
-    } */
     
     function submitForm() {
         var form = document.getElementById('rawMaterialForm');
@@ -83,16 +60,10 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
     }
 
 </script>
-  
- 
-
 
 </head>
 <body>
 <div class="main-wrapper">
-   
-
-
     <!-- Page Wrapper -->
     <div class="page-wrapper">
 
@@ -127,12 +98,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                     <span aria-hidden="true">&times;</span>
                 </button> -->
             </div>
-            
-            
-           
             <div class="modal-body">
-            
-            
              <div class="col-md-12">
         <div class="form-group">
             <label for="file">Image Upload <span class="text-danger">*</span></label>
@@ -140,12 +106,7 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
         </div>
     </div>
                
-             <%--   <div class="col-md-12">
-    <div class="form-group">
-        <label for="imageUrl">Image URL <span class="text-danger">*</span></label>
-        <input name="imageUrl" id="imageUrl" class="form-control" type="text" value="${imageUrl}" readonly>
-    </div>
-</div> --%>
+
 
                 
                 <div class="col-md-12">
@@ -164,11 +125,6 @@ String roleIDString = (String) sdsession.getAttribute("RoleID");
                 <div class="submit-section">
                   <button type="button" onclick="submitForm()">Submit</button>
                 </div>
-                
-                
-               
-                
-                
             </div>
         </div>
     </div></div>

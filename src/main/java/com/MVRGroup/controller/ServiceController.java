@@ -123,12 +123,6 @@ public class ServiceController {
 	        }
 	    }
 
-		/*
-		 * @PostMapping("/serviceedit") public String Serviceedit(@ModelAttribute
-		 * ServiceEntity rawmaterial) { serviceService.EditService(rawmaterial); return
-		 * "redirect:/service"; }
-		 */
-
 	    
 	  @PostMapping("/servicedelete")
 	    public String Servicedelete(@RequestParam int serviceId)
