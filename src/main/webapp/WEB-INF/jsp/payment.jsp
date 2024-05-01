@@ -164,9 +164,7 @@ function showAllUserDetails() {
          
     
      </div>
-   <div class="row justify-content-center align-items-center custom-pagination d-flex justify-content-center" id="flag1">
-    
-     
+   <div class="row justify-content-center align-items-center custom-pagination d-flex justify-content-center" id="flag1">     
    </div>
 
 
